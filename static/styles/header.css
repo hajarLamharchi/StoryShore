@@ -1,0 +1,17 @@
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 0;
+    background-color: #fce9d8;
+    width: 100%;
+    height: 70px;
+    z-index: 1;
+}
+
+.image {
+    background-image: url('../images/StoryShore_logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 20px center;
+}
