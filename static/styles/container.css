@@ -43,8 +43,8 @@
 .container .more {
     width: 160px;
     height: 40px;
-    background: #575cc7;
-    border: none;
+    background-color: transparent;
+    border: 2px solid #201f54;
     font-size: 18px;
     border-radius: 10px;
     cursor: pointer;
@@ -54,8 +54,9 @@
 
 .container .more a {
     text-decoration: none;
-    color: black;
+    color: #201f54;
     transition: .3s ease;
+    
 }
 
 .more:hover {
