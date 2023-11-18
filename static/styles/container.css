@@ -1,0 +1,63 @@
+.container {
+    background-image: url(../images/lib.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+   display: flex;
+   flex-direction: row;
+   margin: 0;
+   padding: 0;
+   width: 100%;
+   height: 80vh;
+   margin-top: 80px;
+   
+}
+.left_content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    gap: 20px;
+    flex: 1;
+   
+}
+
+.container .par {
+    
+    font-family: Arial;
+    letter-spacing: 1.2px;
+    line-height: 30px;
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+
+.container h1 {
+    font-family: 'Times New Roman';
+    font-size: 50px;
+    letter-spacing: 2px;
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+
+.container .more {
+    width: 160px;
+    height: 40px;
+    background: #575cc7;
+    border: none;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: .4s ease;
+    
+}
+
+.container .more a {
+    text-decoration: none;
+    color: black;
+    transition: .3s ease;
+}
+
+.more:hover {
+    opacity: 0.5;
+}
