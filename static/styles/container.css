@@ -1,5 +1,5 @@
 .container {
-    background-image: url(../images/lib.jpg);
+    background-image: url(../images/lib1.png);
     background-repeat: no-repeat;
     background-size: cover;
    display: flex;
@@ -44,7 +44,7 @@
     width: 160px;
     height: 40px;
     background-color: transparent;
-    border: 2px solid #201f54;
+    border: 2px solid white;
     font-size: 18px;
     border-radius: 10px;
     cursor: pointer;
@@ -54,7 +54,7 @@
 
 .container .more a {
     text-decoration: none;
-    color: #201f54;
+    color: white;
     transition: .3s ease;
     
 }
