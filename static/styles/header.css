@@ -36,14 +36,14 @@ ul li {
 
 ul li a {
     text-decoration: none;
-    color: black;
+    color: white;
     font-family: Arial;
     font-weight: bold;
     transition: 0.4s ease-in-out;
 }
 
 ul li a:hover {
-    color: #aaa9be;
+    color: #5c5c61;
 }
 
 .search {

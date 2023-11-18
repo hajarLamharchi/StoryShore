@@ -1,64 +1,196 @@
-.container {
-    background-image: url(../images/lib1.png);
-    background-repeat: no-repeat;
+.displaycontainer{
+    
+    width: 100%;
+    height: 100vh;
+    background-image: url("../images/imgwithOverlay.jpg");
     background-size: cover;
-   display: flex;
-   flex-direction: row;
-   margin: 0;
-   padding: 0;
-   width: 100%;
-   height: 87vh;
-   margin-top: 80px;
-   
-}
-.left_content{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 20px;
-    gap: 20px;
-    flex: 1;
-   
-}
+    top: 0;
+    z-index: 0;
 
-.container .par {
-    
-    font-family: Arial;
-    letter-spacing: 1.2px;
-    line-height: 30px;
-    margin: 0;
-    padding: 0;
+
+}
+.displaycontainer .container-text{
+    position: relative;
+    top: 50%;
+    margin-left: 10%;
+    width: 40%;
+}
+.displaycontainer .container-text .text{
+    font-size: 26px;
     color: white;
+    font-family: sans-serif;
 }
-
-.container h1 {
-    font-family: 'Times New Roman';
-    font-size: 50px;
-    letter-spacing: 2px;
-    margin: 0;
-    padding: 0;
-    color: white;
-}
-
-.container .more {
-    width: 160px;
-    height: 40px;
-    background-color: transparent;
-    border: 2px solid white;
-    font-size: 18px;
-    border-radius: 10px;
+.displaycontainer .container-text button, .about-container-buttons button{
+    padding: 10px 50px;
+    border: none;
+    background: white;
+    font-size: 14px;
+    font-weight: 200;
     cursor: pointer;
-    transition: .4s ease;
+    margin-top: 30px;
+    box-shadow: 1px 1px 6px #f9f9f924;
+
+}
+.pink-container{
+    width: 100%;
+    background-color: #F5E9DB;
+    padding: 10% 0;
+}
+.book-container-title{
+    font-size: 50px;
+    text-align: center;
+    color: #545252;
+}
+.book-container-sub-title{
+    font-size: 18px;
+    text-align: center;
+    margin: 10px auto;
+    width: 40%;
+    font-weight: 200;
+    color: #7b7979;
+}
+.book-preview-container{
+    width: 100%;
+    position: relative;
+    padding: 5% 0;
+    
+    display: flex;
+    justify-content: center;
     
 }
 
-.container .more a {
-    text-decoration: none;
+.book-preview {
+    text-align: center;
+    position: relative;
+    width: 20%;
+    margin-left: 50px;
+}
+
+.book-preview img {
+    max-width: 100%;
+    height: auto;
+}
+
+.book-details {
+    background-color: #FFF;
+    padding: 15px 10px;
+    
+}
+.book-details .author{
+    font-size: 16px;
+    font-weight: 200;
+    text-align: center;
+}
+.book-details .book-title{
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+}
+.price {
+    margin: 0;
+    font-weight: bold;
+    text-align: center;
+}
+
+.shop-now {
+    cursor: pointer;
+    position: absolute;
+    top: 4px;
+    right: 2%;
+    display: flex;
+    width: 30px;
+    height: 30px;
+    background: #ffffff59;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+}
+.shop-now:hover{
+    background: #F5E9DB;
+}
+
+
+.tooltip {
+    visibility: hidden;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    width: 100px;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; 
+    left: 50%;
+    margin-left: -60px; 
+    opacity: 0;
+    
+}
+
+.shop-now:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+.about-container{
+    display: flex;
+    width: 100%;
+}
+.about-container-img{
+    width: 50%;
+    background-image: url("../images/Books-lib.jpg");
+    background-size: cover;
+}
+.about-container-text{
+    width: 50%;
+    background: #191919;
+    padding: 14% 0;
+}
+.about-container-text p{
     color: white;
-    transition: .3s ease;
-    
+    font-weight: 100;
+    margin: auto;
+    text-align: center;
+    width: 70%;
+    line-height: 1.5;
+    font-family: sans-serif;
+    font-size: 15px;
+}
+.about-container-buttons {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ gap: 10px;
+}
+.about-container-buttons button{
+    margin: 40px 0 0 0;
+}
+.help{
+    display: flex;
+}
+.contact-details, .contact-picture {
+    width: 50%;
+    box-sizing: border-box;
+}
+.contact-details{
+    margin-left: 21%;
+    margin-top: 4%;
+}
+.contact-details .title{
+    font-size: 40px;
+    margin-bottom: 92px;
+}
+.contact-details h2 {
+    font-size: 18px;
+    margin: 0;
+    margin-bottom: 25px;
+    font-family: sans-serif;
 }
 
-.more:hover {
-    opacity: 0.5;
+.contact-details p {
+    margin: 5px 0;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    font-size: 14px;
 }
+
+

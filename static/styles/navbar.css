@@ -1,0 +1,45 @@
+.navbar{
+    display: flex;
+    position: absolute;
+    z-index: 10;
+    align-items: center;
+   width: 100%;
+}
+.navbar .navbar-item-icon{
+    flex: 1;
+    margin: 20px 30px;
+}
+.navbar .navbar-item-icon image{
+    width: 200px;
+}
+.navbar .navbar-item{
+    margin: 0 30px 0px 0;
+}
+.navbar .searsh{
+    background: #80808036;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    color: rgb(187, 186, 186);
+    box-shadow: 1px 1px 5px #00000024;
+}
+
+.navbar .login{
+    padding: 13px 19px;
+    border: none;
+    background: #D2B48C;
+    font-size: 15px;
+    cursor: pointer;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px #00000024;
+}
+.navbar .menu{
+    color: white;
+    flex: 2;
+    font-weight: 400;
+}
+.navbar .basket{
+    margin: 10px;
+}
