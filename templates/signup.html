@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head> 
+        <link rel="stylesheet" href="../static/styles/signup.css">
+        <link rel="stylesheet" href="../static/styles/style.css">
+        <title>StoryShore</title>
+        <link rel="icon" type="image/x-icon" href="../static/images/icon.png">
+    </head>
+    <body>
+        <div class="signup_container">
+            <p class="title">Register</p>
+            <form method="post">
+                <div class="inputs">
+                    <div class="col1">
+                        <label>Resiter As</label>
+                        <select name="user-type" id="user-type">
+                            <option value="writer">Writer</option>
+                            <option value="client">Client</option>
+                        </select>
+                        <label>Username</label>
+                        <input type="text">
+                        <label>Email</label>
+                        <input type="email">
+                    </div>
+                    <div class="col1">
+                        <label>Address</label>
+                        <input type="text">
+                        <label>Phone</label>
+                        <input type="tel">
+                        <label>Password</label>
+                        <input type="password">
+                    </div>
+                </div>
+                
+                <button type="submit">Register
+                </button>
+            </form>
+            <p class="login"> Already have an acount? <a href="login_page.html">Log In</a></p>
+        </div>
+    </body>
+</html>
