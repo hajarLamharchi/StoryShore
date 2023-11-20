@@ -1,0 +1,44 @@
+.navbar{
+    position: relative;
+    color: black;
+}
+.navbar a{
+    color: black;
+}
+.pink-container{
+    background-color: unset;
+    padding: 2% 0;
+}
+.filter-container{
+    margin-top: 60px;
+}
+.filter-container form{
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+}
+.filter-container button{
+    padding: 13px 19px;
+    border: none;
+    background: #191919;
+    font-size: 15px;
+    cursor: pointer;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px #00000024;
+}
+.filter-container form input, .filter-container form select{
+    border: 1px solid ;
+}
+.pink-container .enum{
+    display: flex;
+    gap: 10px;
+    width: 70%;
+    padding: 0 15%;
+    justify-content: center;
+}
+.pink-container .enum .nb{
+    padding: 4px 8px;
+    background-color: #191919;
+    color: white;
+}

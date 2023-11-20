@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <link rel="stylesheet" href="../static/styles/header.css">
+        <link rel="stylesheet" href="../static/styles/footer.css">
+        <link rel="stylesheet" href="../static/styles/container.css">
+        <link rel="stylesheet" href="../static/styles/style.css">
+        <link rel="stylesheet" href="../static/styles/navbar.css">
+        <link rel="stylesheet" href="../static/styles/shop.css">
+
+        <script type="text/javascript" src="../static/scripts/main.js"></script>
+        <title>StoryShore</title>
+    <link rel="icon" type="image/x-icon" href="../static/images/icon.png">
+    </head>
+    <body>
+        <!---<header class="image"></header> -->
+        <div class="navbar">
+            <a class="navbar-item-icon">
+                <img src="../static/images/balcklogo.png" alt="logo" width="80">
+            </a>
+            <data class="navbar-item menu">
+                <ul>
+                    <li><a href="/">HOME</a></li>
+                    <li><a href="#about">ABOUT</a></li>
+                    <li><a href="#contact">CONTACT</a></li>
+                </ul>
+            </data>
+            <a class="navbar-item basket"><img src="../static/images/basket.png" alt="basket" width="30"></a>
+            <a class="navbar-item" href="/login"><img src="../static/images/user.png" alt="user" width="30"></a>
+        </div>
+        <div class="filter-container">
+            <form method="post">
+                <input type="text" id="title" name="title" placeholder="Title">
+                <select id="genre" name="genre" aria-placeholder="Genre">
+                    <option value="" disabled selected>Genre</option>
+                    <option value="classics">Classics</option>
+                    <option value="Detective and Mystery">Detective and Mystery</option>
+                    <option value="Fantasy">Fantasy</option>
+                    <option value="Biographies">Biographies</option>
+                    <option value="Horror">Horror</option>
+                    <option value="Romance">Romance</option>
+                    <option value="Sci-Fi">Sci-Fi</option>
+                    <option value="Poetry">Poetry</option>
+                </select> 
+                <input type="text" id="author" name="author" placeholder="Author">
+                <button type="submit">Find a Book</button>
+            </form>
+        </div>
+        <div class="Books">
+            <div class="pink-container">
+                <div class="book-preview-container">
+                    <div class="book-preview">
+                        <img src="../static/images/book1.jpg" alt="Book Title 3">
+                        <div class="shop-now">
+                            <img src="../static/images/shopping-bag.png" alt="Book Title 1" width="20">                
+                                <div class="tooltip">Add to card</div>
+                         </div>
+                        <div class="book-details">
+                            <p class="author">kevin helman</p>
+                            <p class="book-title">The Sons of the Empire</p>
+                            <p class="price">$14.99</p>
+                            
+                        </div>
+                    </div>
+                    <div class="book-preview">
+                        <img src="../static/images/book2.jpg" alt="Book Title 3">
+                        <div class="shop-now">
+                            <img src="../static/images/shopping-bag.png" alt="Book Title 1" width="20">                
+                                <div class="tooltip">Add to card</div>
+                         </div>
+                        <div class="book-details">
+                            <p class="author">kevin helman</p>
+                            <p class="book-title">The Sons of the Empire</p>
+                            <p class="price">$14.99</p>
+                            
+                        </div>
+                    </div>
+                    <div class="book-preview">
+                        <img src="../static/images/book3.jpg" alt="Book Title 3">
+                        <div class="shop-now">
+                            <img src="../static/images/shopping-bag.png" alt="Book Title 1" width="20">                
+                                <div class="tooltip">Add to card</div>
+                         </div>
+                        <div class="book-details">
+                            <p class="author">kevin helman</p>
+                            <p class="book-title">The Sons of the Empire</p>
+                            <p class="price">$14.99</p>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="enum">
+                    <div class="nb">1</div>
+                    <div class="nb">2</div>
+                    <div class="nb">3</div>
+                    <div class="nb">4</div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="footer_flex">
+                <div class="footer_flex_section1">
+                    <h1>
+                        StoryShore
+                    </h1>
+                    <div class="line">
+
+                    </div>
+                    <h3>contact information</h3>
+                    <h5>privacy policy</h5>
+                </div>
+                <div class="footer_flex_section2">
+                    <h3>SITE MAP</h3>  
+                    <ul>
+                        <li>My business</li>
+                        <li>My products</li>
+                        <li>My services</li>
+                        <li>Gallery</li>
+                        <li>Contact</li>
+                        <li>Support</li>
+                    </ul> 
+                    <div class="copyrights">
+                        <h5>copyrights</h5>
+                        <img class="img" src="../static/images/cp.png">
+                        <h5>2023</h5> 
+                    </div>
+                </div>
+                <div class="footer_flex_section3">
+                    <input type="text" id="username" name="username" placeholder="Email address"/>
+                    <button class="subscribe">Subscribe</button>
+                    <div class="social">
+                        <img src="../static/images/fb.png">
+                        <img src="../static/images/insta.png">
+                        <img src="../static/images/in.png">
+                        <img src="../static/images/tt.png">
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,70 @@
+body{
+    font-family: sans-serif
+}
+.navbar{
+    position: relative;
+    color: black;
+}
+.navbar a{
+    color: black;
+}
+.book-container{
+    width: 86%;
+    padding: 4% 7%;
+    display: flex;
+    
+}
+.info-container{
+    width: 41%;
+    flex-direction: column;
+    line-height: 1.5;
+    display: flex;
+    position: relative;
+    padding: 2% 0 0;
+    justify-content: center;
+}
+.info-container .price-bubble{
+    top: 6%;
+    right: 20px;
+    display: flex;
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 1px solid #000000;
+    justify-content: center;
+    align-items: center;
+}
+.space{
+    height: 35px;
+}
+.info-container .cart-button{
+    padding: 13px 19px;
+    border: none;
+    background: #191919;
+    font-size: 15px;
+    cursor: pointer;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px #00000024;
+    align-self: end;
+    margin: 20px 0 0;
+}
+.img-conatiner{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+ .img-conatiner img{
+    max-width: 200px;
+ }
+ .small-img-preview{
+    display: flex;
+    gap: 15px;
+ }
+ .small-img-preview .small{
+    max-width: 50px;
+ }

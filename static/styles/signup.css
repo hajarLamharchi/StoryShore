@@ -45,11 +45,6 @@ body{
     justify-content: space-around;
 }
 select, input{
-    border: none;
-    padding: 12px;
-    font-size: 16px;
-    border-radius: 5px;
-    color: rgb(55 55 55);
     box-shadow: 1px 1px 5px  #00000036;
     margin-bottom: 20px;
 }
