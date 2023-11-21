@@ -13,7 +13,7 @@ $(document).ready(function() {
         $('#home').removeClass("active");
         $('#contact').removeClass("active");
         $('#about').addClass("active");
-        let aboutOffset = $('#about_offset').offset().yop - 110;
+        let aboutOffset = $('#about_offset').offset().top - 110;
         $('html,body').animate({scrollTop:aboutOffset});
         event.preventDefault();
     });
@@ -35,8 +35,8 @@ $(document).ready(function() {
         let contactOffset = $('#contact_offset').offset().top - 110;
         if (scrollPosition >= 0 && scrollPosition < aboutOffset) {
             $('#about').removeClass("active");
-        $('#contact').removeClass("active");
-        $('#home').addClass("active");
+            $('#contact').removeClass("active");
+            $('#home').addClass("active");
         } 
         else if (scrollPosition >= aboutOffset && scrollPosition < contactOffset) {
             $('#home').removeClass("active");
