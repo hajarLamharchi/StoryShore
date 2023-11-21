@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <link rel="stylesheet" href="../static/styles/header.css">
+        <link rel="stylesheet" href="../static/styles/footer.css">
+        <link rel="stylesheet" href="../static/styles/style.css">
+        <link rel="stylesheet" href="../static/styles/navbar.css">
+        <link rel="stylesheet" href="../static/styles/cart.css">
+        <script type="text/javascript" src="../static/scripts/main.js"></script>
+        <script type="text/javascript" src="../static/scripts/cart.js"></script>
+
+        <title>StoryShore</title>
+    <link rel="icon" type="image/x-icon" href="../static/images/icon.png">
+    </head>
+    <body>
+        <div class="navbar">
+            <a class="navbar-item-icon">
+                <img src="../static/images/balcklogo.png" alt="logo" width="80">
+            </a>
+            <data class="navbar-item menu">
+                <ul>
+                    <li><a href="/">HOME</a></li>
+                    <li><a href="#about">ABOUT</a></li>
+                    <li><a href="#contact">CONTACT</a></li>
+                </ul>
+            </data>
+            <a class="navbar-item basket"><img src="../static/images/basket.png" alt="basket" width="30"></a>
+            <a class="navbar-item" href="/login"><img src="../static/images/user.png" alt="user" width="30"></a>
+        </div>
+        <div class="container">
+            <p class="cart-text">Shopping cart</p>
+            <div class="item">
+                <img src="../static/images/book1.jpg">
+                <div class="Author">
+                    <h4>The book of the lies</h4>
+                    <p>Elian elves</p>
+                    <p class="original_price">9.99</p>
+                </div>
+                <div class="quantity">
+                    <Button class="sus_button">-</Button>
+                    <p class="book_amount">1</p>
+                    <Button class="add_button">+</Button>
+                </div>
+                <div class="price">
+                    <p class="price_text">9.99</p>
+                    <a class="remove_button">Remove</a>
+                </div>
+            </div>
+            <div class="item">
+                <img src="../static/images/book1.jpg">
+                <div class="Author">
+                    <h4>The book of the lies</h4>
+                    <p>Elian elves</p>
+                    <p class="original_price">9.99</p>
+                </div>
+                <div class="quantity">
+                    <Button class="sus_button">-</Button>
+                    <p class="book_amount">1</p>
+                    <button class="add_button">+</Button>
+                </div>
+                <div class="price">
+                    <p class="price_text">9.99</p>
+                    <a class="remove_button">Remove</a>
+                </div>
+            </div>
+            
+            <hr>
+
+            <div class="total">
+                <div class="info">
+                    <div class="total_text">
+                        <h4>SubTotal</h4>
+                        <p>1 item</p>
+                    </div>
+                    <h1 id="total_price">9.99</h1>
+                </div>
+                <button class="checkout_button">Checkout</button>
+
+            </div>
+        </div>
+    </body>
+    <footer>
+        <div class="footer_flex">
+            <div class="footer_flex_section1">
+                <h1>
+                    StoryShore
+                </h1>
+                <div class="line">
+
+                </div>
+                <h3>contact information</h3>
+                <h5>privacy policy</h5>
+            </div>
+            <div class="footer_flex_section2">
+                <h3>SITE MAP</h3>  
+                <ul>
+                    <li>My business</li>
+                    <li>My products</li>
+                    <li>My services</li>
+                    <li>Gallery</li>
+                    <li>Contact</li>
+                    <li>Support</li>
+                </ul> 
+                <div class="copyrights">
+                    <h5>copyrights</h5>
+                    <img class="img" src="../static/images/cp.png">
+                    <h5>2023</h5> 
+                </div>
+            </div>
+            <div class="footer_flex_section3">
+                <input type="text" id="username" name="username" placeholder="Email address"/>
+                <button class="subscribe">Subscribe</button>
+                <div class="social">
+                    <img src="../static/images/fb.png">
+                    <img src="../static/images/insta.png">
+                    <img src="../static/images/in.png">
+                    <img src="../static/images/tt.png">
+                </div>
+
+            </div>
+        </div>
+    </footer>
+</html>

@@ -13,7 +13,7 @@ $(document).ready(function() {
         $('#home').removeClass("active");
         $('#contact').removeClass("active");
         $('#about').addClass("active");
-        let aboutOffset = $('#about_offset').offset().top - 110;
+        let aboutOffset = $('#about_offset').offset().yop - 110;
         $('html,body').animate({scrollTop:aboutOffset});
         event.preventDefault();
     });
