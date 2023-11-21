@@ -13,15 +13,15 @@
     </head>
     <body>
         <!---<header class="image"></header> -->
-        <div class="navbar">
+        <div class="navbar" id="navbar">
             <a class="navbar-item-icon">
                 <img src="../static/images/logo2.png" alt="logo" width="80">
             </a>
-            <data class="navbar-item menu">
+            <data id="menu" class="navbar-item menu">
                 <ul>
-                    <li><a href="/">HOME</a></li>
-                    <li><a href="#about">ABOUT</a></li>
-                    <li><a href="#contact">CONTACT</a></li>
+                    <li><a id="home" class="active" href="/">HOME</a></li>
+                    <li><a id="about" href="#about">ABOUT</a></li>
+                    <li><a id="contact" href="#contact">CONTACT</a></li>
                 </ul>
             </data>
             <a class="navbar-item basket"><img src="../static/images/basket.png" alt="basket" width="30"></a>
@@ -30,7 +30,7 @@
         <div class="displaycontainer" >
             <div class="container-text">
                 <p class="text">Discover a sanctuary for words at StoryShore: Where every page is a home, and every story finds its place in the heart</p>
-                <button > Discover more </button>            
+                <button id="discover_more"> Discover more </button>            
             </div>
         </div>
         <div class="pink-container">
@@ -79,17 +79,17 @@
                 </div>
             </div>
         </div>
-        <div class="about-container" id="about">
+        <div class="about-container" id="about_offset">
             <div class="about-container-img"></div>
             <div class="about-container-text">
                 <p>Step into our online bookstore, where the world of captivating stories awaits. Explore a carefully curated selection of best-selling books, effortlessly purchase new releases, and immerse yourself in the joy of reading. Your next literary adventure is just a click away, combining the thrill of discovery with the ease of acquiring your favorite titles. Welcome to a book lover's paradise, where stories come to life with every turn of the page</p>
                 <div class="about-container-buttons">
-                    <button>Buy a book</button>
-                    <button>Publich a book</button>
+                    <button id="buy_button">Buy a book</button>
+                    <button id="publish_button">Publich a book</button>
                 </div>
             </div>
         </div>
-        <div class="pink-container help" id="contact">
+        <div class="pink-container help" id="contact_offset">
             <div class="contact-details">
                 <p class="title">need anything?</p>
                 <p>Social Media</p>

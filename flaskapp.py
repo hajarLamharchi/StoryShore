@@ -20,5 +20,10 @@ def register():
     return render_template('signup.html')
 
 
+@app.route('/books', strict_slashes=False)
+def books():
+    return render_template('shop.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)

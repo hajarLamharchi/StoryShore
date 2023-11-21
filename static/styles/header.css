@@ -42,7 +42,8 @@ ul li a {
     transition: 0.4s ease-in-out;
 }
 
-ul li a:hover {
+ul li a:hover,
+ul li a.active{
     color: #5c5c61;
 }
 
