@@ -32,7 +32,7 @@ $(document).ready(function() {
 
         let aboutOffset = $('#about_offset').offset().top - 110;
         let scrollPosition = $(window).scrollTop();
-        let contactOffset = $('#contact_offset').offset().top;
+        let contactOffset = $('#contact_offset').offset().top - 110;
         if (scrollPosition >= 0 && scrollPosition < aboutOffset) {
             $('#about').removeClass("active");
         $('#contact').removeClass("active");
