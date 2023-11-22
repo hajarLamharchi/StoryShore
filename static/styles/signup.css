@@ -56,7 +56,7 @@ select, input{
 .signup_container .login a:hover{
     color: gray;
 }
-button{
+.btn {
     padding: 13px 19px;
     border: none;
     background: #191919;

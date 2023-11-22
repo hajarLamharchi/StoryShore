@@ -70,6 +70,22 @@ $(document).ready(function() {
       $('#publish_button').click(function (){
         window.location.href = '/login';
       });
+
+
+      function isElementVisible(element) {
+        return $(element).is(':visible');
+    }
+
+    function hideElementAfterDelay(element, delay) {
+        setTimeout(function() {
+            if (isElementVisible(element)) {
+                $(element).hide();
+            }
+        }, delay);
+    }
+
+    // Example usage
+    var myDiv = $('#alert');
+    hideElementAfterDelay(myDiv, 3000);
 });
 
-   

@@ -13,20 +13,33 @@
     </head>
     <body>
         <!---<header class="image"></header> -->
+      
         <div class="navbar" id="navbar">
             <a class="navbar-item-icon">
                 <img src="../static/images/logo2.png" alt="logo" width="80">
             </a>
             <data id="menu" class="navbar-item menu">
                 <ul>
-                    <li><a id="home" class="active" href="/">HOME</a></li>
+                    <li><a id="home" class="active" href="{{ url_for('home') }}">HOME</a></li>
                     <li><a id="about" href="#about">ABOUT</a></li>
                     <li><a id="contact" href="#contact">CONTACT</a></li>
                 </ul>
             </data>
             <a class="navbar-item basket"><img src="../static/images/basket.png" alt="basket" width="30"></a>
-            <a class="navbar-item" href="/login"><img src="../static/images/user.png" alt="user" width="30"></a>
+            <a class="navbar-item" href="{{ url_for('login') }}"><img src="../static/images/user.png" alt="user" width="30"></a>
         </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert" id="alert">
+                    {{ message }}
+                </div>
+                
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
         <div class="displaycontainer" >
             <div class="container-text">
                 <p class="text">Discover a sanctuary for words at StoryShore: Where every page is a home, and every story finds its place in the heart</p>

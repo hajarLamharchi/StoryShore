@@ -21,13 +21,13 @@
             </a>
             <data class="navbar-item menu">
                 <ul>
-                    <li><a href="/">HOME</a></li>
-                    <li><a href="#about">ABOUT</a></li>
-                    <li><a href="#contact">CONTACT</a></li>
+                    <li><a href="{{ url_for('home') }}">HOME</a></li>
+                    <li><a href="{{ url_for('home') }}">ABOUT</a></li>
+                    <li><a href="{{ url_for('home') }}">CONTACT</a></li>
                 </ul>
             </data>
             <a class="navbar-item basket"><img src="../static/images/basket.png" alt="basket" width="30"></a>
-            <a class="navbar-item" href="/login"><img src="../static/images/user.png" alt="user" width="30"></a>
+            <a class="navbar-item" href="{{ url_for('login') }}"><img src="../static/images/user.png" alt="user" width="30"></a>
         </div>
         <div class="filter-container">
             <form method="post">

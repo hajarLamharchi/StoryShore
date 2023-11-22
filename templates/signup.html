@@ -9,33 +9,92 @@
     <body>
         <div class="signup_container">
             <p class="title">Register</p>
-            <form method="post">
+            <form method="post" action="">
+                {{ form.hidden_tag() }}
                 <div class="inputs">
                     <div class="col1">
-                        <label>Resiter As</label>
-                        <select name="user-type" id="user-type">
-                            <option value="writer">Writer</option>
-                            <option value="client">Client</option>
-                        </select>
-                        <label>Username</label>
-                        <input type="text">
-                        <label>Email</label>
-                        <input type="email">
+                        {{ form.usertype.label }}
+                        {% if form.usertype.errors %}
+                            {{ form.usertype(class="is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.usertype.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.usertype(class="user-type", id="user-type") }}
+                        {% endif %}
+                        
+                        {{ form.username.label }}
+                        {% if form.username.errors %}
+                            {{ form.username(class="is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.username.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.username(class="form-control") }}
+                        {% endif %}
+
+                        {{ form.email.label }}
+                        {% if form.email.errors %}
+                            {{ form.email(class="is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.email.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.email(class="form-control") }}
+                        {% endif %}
+                        
                     </div>
                     <div class="col1">
-                        <label>Address</label>
-                        <input type="text">
-                        <label>Phone</label>
-                        <input type="tel">
-                        <label>Password</label>
-                        <input type="password">
+                        {{ form.address.label }}
+                        {% if form.address.errors %}
+                            {{ form.address(class="is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.address.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.address(class="form-control") }}
+                        {% endif %}
+                        
+                        {{ form.phone.label }}
+                        {% if form.phone.errors %}
+                            {{ form.phone(class="is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.phone.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.phone(class="form-control") }}
+                        {% endif %}
+                        
+                        {{ form.password.label }}
+                        {% if form.password.errors %}
+                            {{ form.password(class="is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.password.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.password(class="form-control") }}
+                        {% endif %}
+
                     </div>
                 </div>
                 
-                <button type="submit">Register
-                </button>
+                <div>
+                    {{ form.submit(class="btn") }}
+                </div>
             </form>
-            <p class="login"> Already have an acount? <a href="/login">Log In</a></p>
+            <p class="login"> Already have an acount? <a href="{{ url_for('login') }}">Log In</a></p>
         </div>
     </body>
 </html>
