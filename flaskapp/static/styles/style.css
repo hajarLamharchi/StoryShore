@@ -7,3 +7,7 @@ input, select{
     border-radius: 5px;
     color: rgb(55 55 55);
 }
+html{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+
+}

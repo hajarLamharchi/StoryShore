@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <link rel="stylesheet" href="../static/styles/header.css">
+        <link rel="stylesheet" href="../static/styles/footer.css">
+        <link rel="stylesheet" href="../static/styles/style.css">
+        <link rel="stylesheet" href="../static/styles/navbar.css">
+        <link rel="stylesheet" href="../static/styles/Dashboard.css">
+        <script type="text/javascript" src="../static/scripts/main.js"></script>
+        <title>StoryShore</title>
+    <link rel="icon" type="image/x-icon" href="../static/images/icon.png">
+    </head>
+    <body>
+        <div class="navbar" id="navbar">
+            <a class="navbar-item-icon">
+                <img src="../static/images/balcklogo.png" alt="logo" width="80">
+            </a>
+            <a class="navbar-item basket"><img src="../static/images/Notif.png" alt="basket" width="30"></a>
+            <a class="navbar-item" href="{{ url_for('login') }}"><img src="../static/images/Logout.png" alt="user" width="30"></a>
+        </div>
+        <div class="dashboard-container">
+            <div class="menu-container">
+                <div class="menu-item" id="dashboard">
+                    <p>Dashboard</p></div>
+                <div class="menu-item" id="dookShelf">
+                    <p>My BookShelf</p>
+                </div>
+                <div class="menu-item active" id="publish">
+                    <p>Publish</p>
+                </div>
+                <div class="menu-item " id="account">
+                    <p>My Account</p>
+                </div>
+            </div>
+            <div class="content-container"></div>
+        </div>
+        
+    </body>
+   
+</html>
