@@ -1,18 +1,24 @@
-from flaskapp import db
+from flaskapp import db, login_manager
+from flask_login import UserMixin
 
 
-class User(db.Model):
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(50), unique=True, nullable=False)
     phone = db.Column(db.String(20))
     address = db.Column(db.String(128))
     password = db.Column(db.String(60), nullable=False)
-    user_type = db.Column(db.String(10), nullable=False)
+    usertype = db.Column(db.String(10), nullable=False)
     books = db.relationship('Book', backref='author', lazy=True)
 
     def __repr__(self):
-        return f"User('{self.user_type}', '{self.username}', '{self.email}')"
+        return f"User('{self.usertype}', '{self.username}', '{self.email}')"
 
 
 class Book(db.Model):

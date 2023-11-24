@@ -84,7 +84,6 @@ $(document).ready(function() {
         }, delay);
     }
 
-    // Example usage
     var myDiv = $('#alert');
     hideElementAfterDelay(myDiv, 3000);
 });
