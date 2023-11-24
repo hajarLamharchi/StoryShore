@@ -25,6 +25,7 @@
         <div class="login_container">
             <p class="title">Log In</p>
             <form method="post">
+                {{ form.hidden_tag() }}
                 {{ form.email.label(class="form-control") }}
                         {% if form.email.errors %}
                             {{ form.email(class="is-invalid") }}

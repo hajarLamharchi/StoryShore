@@ -18,7 +18,6 @@ body{
 .dashboard-container{
     width: 100%;
     display: flex;
-    
     height: 100%;
     gap: 1%;
 }
@@ -38,4 +37,55 @@ body{
     background-color: gradiant;
     background: white;
     color: black;
+}
+.content-container .title{
+    padding-bottom: 2%;
+}
+.content-container{
+    width: 80%;
+    height: 100%;
+    padding: 0 0 0 5%;
+    
+}
+.book-container{
+    padding: 2% 0;
+    display: flex;
+    height: 80%; 
+    gap: 25px;
+    flex-wrap: wrap;
+    width: 98%;
+    overflow-y: auto;
+}
+.Book-item{
+    display: flex;
+    width: 23%;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
+}
+.book-container img{
+    max-width:150px;
+}
+.book-info{
+    padding-left: 20px;
+    padding-top: 5px;
+}
+.Book-item .book-name{
+font-size: 28px;
+padding-bottom: 10px;
+}
+.bBook-item a{
+    color: blue;
+    text-decoration: underline;
+    
+}
+.edit-btn{
+    padding: 8px 20px;
+    margin-top:10px ;
+    border: none;
+    background: #191919;
+    font-size: 13px;
+    cursor: pointer;
+    color: white;
+    
 }
