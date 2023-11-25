@@ -59,20 +59,28 @@ $(document).ready(function() {
           }
       });
       
-      $('#discover_more').click(function (){
+    $('#discover_more').click(function (){
         window.location.href = '/books';
-      });
+    });
 
-      $('#buy_button').click(function (){
+    $('#buy_button').click(function (){
         window.location.href = '/login';
-      });
+    });
 
-      $('#publish_button').click(function (){
+    $('#buy_button_authenticated').click(function (){
+        window.location.href = '/books';
+    });
+
+    $('#publish_button').click(function (){
         window.location.href = '/login';
-      });
+    });
+
+    $('#publish_button_authenticated').click(function (){
+        window.location.href = '/dashboard';
+    });
 
 
-      function isElementVisible(element) {
+    function isElementVisible(element) {
         return $(element).is(':visible');
     }
 

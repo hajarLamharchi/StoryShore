@@ -47,6 +47,15 @@
     border-radius: 5px;
     box-shadow: 1px 1px 5px #00000024;
 }
+.username {
+    color: white;
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 16px;
+    margin-right: 30px;
+
+}
+
 .navbar .menu{
     color: black;
     flex: 2;

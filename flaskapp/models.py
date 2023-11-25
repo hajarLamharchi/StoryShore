@@ -18,7 +18,7 @@ class User(db.Model, UserMixin):
     books = db.relationship('Book', backref='author', lazy=True)
 
     def __repr__(self):
-        return f"User('{self.usertype}', '{self.username}', '{self.email}')"
+        return f"User('{self.id}','{self.usertype}', '{self.username}', '{self.email}')"
 
 
 class Book(db.Model):
@@ -33,4 +33,4 @@ class Book(db.Model):
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
-        return f"('{self.title}', '{self.subtitle}', '{self.genre}')"
+        return f"Book('{self.id}','{self.title}', '{self.subtitle}', '{self.genre}')"
