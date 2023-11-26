@@ -2,13 +2,15 @@ html{
     height: 100vh;
 }
 body{
-    height:  87%;
+    height:  90%;
     overflow: hidden;
 }
+
 .navbar{
     position: relative;
     color: black;
-    height: 15%;
+    height: 12%;
+    box-shadow: 1px 1px 8px 2px rgb(228, 227, 227);
 
 }
 .navbar a{
@@ -16,15 +18,15 @@ body{
    
 }
 .dashboard-container{
+    
     width: 100%;
     display: flex;
     height: 100%;
-    gap: 1%;
 }
 .menu-container{
     width: 15%;
-    background-color: #222222;
     color: white;
+    background-color: #191919;
     padding-top: 2%;
     
 }
@@ -34,7 +36,6 @@ body{
 }
 .active{
     font-weight: 600;
-    background-color: gradiant;
     background: white;
     color: black;
 }
@@ -44,8 +45,8 @@ body{
 .content-container{
     width: 80%;
     height: 100%;
-    padding: 0 0 0 5%;
-    
+    padding: 2% 0 0 5%;
+      
 }
 .book-container{
     padding: 2% 0;
@@ -88,4 +89,117 @@ padding-bottom: 10px;
     cursor: pointer;
     color: white;
     
+}
+.publish-continer{
+    display: flex;
+    flex-direction: column;
+    height: 81%;
+    padding: 10px 13%;
+    margin: auto;
+    overflow: auto;
+}
+.publish-continer form{
+    display: flex;
+    flex-direction: column;
+    background: #efefef;
+    overflow-y: auto;
+    padding: 16%;
+    align-items: stretch;
+}
+.publish-continer form input, .publish-continer form select, .custom-file-upload{
+    border: 1px solid;
+    box-shadow: 1px 1px 5px  #00000036;
+    margin-bottom: 20px;
+}
+.publish-continer form input[type=file]{
+    padding: 0;
+}
+.publish-continer input[type="file"] {
+    display: none;
+}
+.custom-file-upload {
+    display: inline-block;
+    cursor: pointer;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    background-color: white;
+    color: rgb(55 55 55);
+}
+
+.dash{
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+.dash .earnings{
+    margin: auto;
+    border-radius: 50%;
+    padding: 50px 19px;
+    background: #ffe8d1;
+}
+.dash .price{
+    font-size: 45px;
+    padding: 30px;
+    
+}
+
+.dash .earnings .label{
+    text-align: center;
+    color: #EC9938;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.signup_container form{
+    margin: auto;
+    display: flex;
+    width: 90%;
+    flex-direction: column;
+    overflow: hidden;
+    
+}
+
+.signup_container .inputs{
+    display: flex;
+    width: 100%;
+    gap: 46px;
+    padding: 20px;
+}
+
+.signup_container .col1{
+    padding: 1%;
+    width: 49%;
+    display: flex;
+    flex-direction: column;
+    justify-content:baseline;
+    background-color: rgb(221 221 221 / 20%);
+    box-shadow: 0px 0px 10px 0px rgb(217 217 217); padding: 20px;
+}
+
+select, input{
+    box-shadow: 1px 1px 5px  #00000036;
+    margin-bottom: 20px;
+}
+
+.signup_container .login{
+    font-size: 14px;
+    text-align: center;
+}
+.signup_container .login a:hover{
+    color: gray;
+}
+.btn {
+    padding: 13px 19px;
+    border: none;
+    background: #191919;
+    font-size: 15px;
+    cursor: pointer;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px #00000024;
+    align-self: end;
+}
+.col1 h2{
+    margin-bottom: 40px;
 }

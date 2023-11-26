@@ -64,3 +64,9 @@ def books():
 @login_required
 def dashboard():
     return render_template('Dashboard.html')
+
+@app.route('/dashboard/<tab_name>')
+@login_required
+def load_content(tab_name):
+    content = render_template(f'{tab_name}.html')
+    return content
