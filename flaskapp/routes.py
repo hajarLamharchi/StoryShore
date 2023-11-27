@@ -1,6 +1,6 @@
-from flask import render_template, url_for, flash, redirect
+from flask import render_template, url_for, flash, redirect, request
 from flaskapp.models import User, Book
-from flaskapp.forms import RegistrationForm, LoginForm
+from flaskapp.forms import RegistrationForm, LoginForm, UpdateAccountForm
 from flaskapp import app, db, bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -23,7 +23,7 @@ def login():
             login_user(user, remember=True)
             return redirect(url_for('home'))
         else:
-            flash('Login unsuccessful, please check email and password')
+            flash('Login unsuccessful, please check your credentials and try again')
     return render_template('login_page.html', form=form)
 
 
@@ -65,8 +65,21 @@ def books():
 def dashboard():
     return render_template('Dashboard.html')
 
+
 @app.route('/dashboard/<tab_name>')
 @login_required
 def load_content(tab_name):
-    content = render_template(f'{tab_name}.html')
+    form = UpdateAccountForm()
+    if form.validate_on_submit():
+        if tab_name == 'my_account':
+            current_user.phone = form.phone.data
+            current_user.email = form.email.data
+            current_user.address = form.address.data
+            current_user.password = form.new_password.data
+            db.session.commit()
+            flash('Your Account has been updated!', 'success')
+            return redirect(url_for('load_content', tab_name=tab_name))
+    content = render_template(f'{tab_name}.html', form=form)
     return content
+
+

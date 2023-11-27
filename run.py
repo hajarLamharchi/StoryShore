@@ -1,8 +1,3 @@
-
-
-
-
-
 from flaskapp import app
 
 

@@ -162,7 +162,7 @@ padding-bottom: 10px;
 
 .signup_container .inputs{
     display: flex;
-    width: 100%;
+    width: 90%;
     gap: 46px;
     padding: 20px;
 }
@@ -199,6 +199,7 @@ select, input{
     border-radius: 5px;
     box-shadow: 1px 1px 5px #00000024;
     align-self: end;
+    margin-left: 20px;
 }
 .col1 h2{
     margin-bottom: 40px;

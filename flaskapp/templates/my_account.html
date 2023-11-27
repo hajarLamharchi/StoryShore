@@ -1,28 +1,80 @@
 <h1 class="title"> My Account</h1>
 
             <div class="signup_container">
-                <form method="post">
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
                     <div class="inputs">
                         <div class="col1">  
                             <h2>Update credentials</h2>                         
-                            <label>Phone</label>
-                            <input type="tel">
-                            <label>Email</label>
-                            <input type="email">
-                            <label>Address</label>
-                            <input type="text">
+                            {{ form.phone.label }}
+                            {% if form.phone.errors %}
+                                {{ form.phone(class="is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.phone.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.phone() }}
+                            {% endif %}
+
+
+                            {{ form.email.label }}
+                            {% if form.email.errors %}
+                                {{ form.email(class="is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.email.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.email() }}
+                            {% endif %}
+
+
+                            {{ form.address.label }}
+                            {% if form.address.errors %}
+                                {{ form.address(class="is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.address.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.address() }}
+                            {% endif %}
                         </div>
                         <div class="col1">
                             
-                            <h2>Update password </h2>
-                            <label>Change Password</label>
-                            <input type="password">
-                            <label>Old Password</label>
-                            <input type="password">
+                            {{ form.old_password.label }}
+                            {% if form.old_password.errors %}
+                                {{ form.old_password(class="is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.old_password.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.old_password() }}
+                            {% endif %}
+
+    
+                           {{ form.new_password.label }}
+                            {% if form.new_password.errors %}
+                                {{ form.new_password(class="is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.new_password.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.new_password() }}
+                            {% endif %}
+
                         </div>
                     </div>
-                    
-                    <button type="submit" class="btn">Update
-                    </button>
+                    <div>
+                        {{ form.submit(class="btn") }}
+                    </div>
                 </form>
             </div>
