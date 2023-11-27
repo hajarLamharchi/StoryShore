@@ -63,6 +63,7 @@ def books():
 @app.route('/dashboard', strict_slashes=False)
 @login_required
 def dashboard():
+    
     return render_template('Dashboard.html')
 
 
@@ -70,16 +71,27 @@ def dashboard():
 @login_required
 def load_content(tab_name):
     form = UpdateAccountForm()
+    if tab_name == 'my_account':
+        form.phone.data = current_user.phone
+        form.email.data = current_user.email 
+        form.address.data = current_user.address
+       # form.new_password.data = current_user.password
+        return render_template(f'{tab_name}.html', form=form)
+    content = render_template(f'{tab_name}.html', form=form)
+    return content
+
+@app.route('/update_account', methods={'POST'})
+@login_required
+def update_account():
+    form = UpdateAccountForm()
     if form.validate_on_submit():
-        if tab_name == 'my_account':
             current_user.phone = form.phone.data
             current_user.email = form.email.data
             current_user.address = form.address.data
             current_user.password = form.new_password.data
             db.session.commit()
             flash('Your Account has been updated!', 'success')
-            return redirect(url_for('load_content', tab_name=tab_name))
-    content = render_template(f'{tab_name}.html', form=form)
+            return redirect(url_for('dashboard'))
+    content = render_template(f'my_account.html', form=form)
     return content
-
 

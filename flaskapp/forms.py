@@ -43,4 +43,10 @@ class UpdateAccountForm(FlaskForm):
             user = User.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError('That email is taken, please choose a different one')
+    
+    def validate_old_password(FlaskForm, old_password):
+        if old_password.data != current_user.password:
+            raise ValidationError('The password you have entered is incorrect.')
+        
+
             

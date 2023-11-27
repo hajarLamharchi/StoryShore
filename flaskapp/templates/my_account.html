@@ -1,7 +1,7 @@
 <h1 class="title"> My Account</h1>
 
             <div class="signup_container">
-                <form method="POST" action="">
+                <form method="POST" action="{{  url_for('update_account')  }}">
                     {{ form.hidden_tag() }}
                     <div class="inputs">
                         <div class="col1">  
@@ -57,8 +57,6 @@
                             {% else %}
                                 {{ form.old_password() }}
                             {% endif %}
-
-    
                            {{ form.new_password.label }}
                             {% if form.new_password.errors %}
                                 {{ form.new_password(class="is-invalid") }}
@@ -70,7 +68,6 @@
                             {% else %}
                                 {{ form.new_password() }}
                             {% endif %}
-
                         </div>
                     </div>
                     <div>
