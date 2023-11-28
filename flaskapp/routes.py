@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request
 from flaskapp.models import User, Book
-from flaskapp.forms import RegistrationForm, LoginForm, UpdateAccountForm
+from flaskapp.forms import RegistrationForm, LoginForm, UpdateAccountForm, AddBookForm
 from flaskapp import app, db, bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -71,12 +71,15 @@ def dashboard():
 @login_required
 def load_content(tab_name):
     form = UpdateAccountForm()
+    form1 = AddBookForm()
     if tab_name == 'my_account':
         form.phone.data = current_user.phone
         form.email.data = current_user.email 
         form.address.data = current_user.address
        # form.new_password.data = current_user.password
         return render_template(f'{tab_name}.html', form=form)
+    if tab_name == 'Publish':
+        return render_template(f'{tab_name}.html', form=form1)
     content = render_template(f'{tab_name}.html', form=form)
     return content
 
@@ -85,13 +88,32 @@ def load_content(tab_name):
 def update_account():
     form = UpdateAccountForm()
     if form.validate_on_submit():
-            current_user.phone = form.phone.data
-            current_user.email = form.email.data
-            current_user.address = form.address.data
-            current_user.password = form.new_password.data
-            db.session.commit()
-            flash('Your Account has been updated!', 'success')
-            return redirect(url_for('dashboard'))
+        hashed_password = bcrypt.generate_password_hash(form.new_password.data).decode('utf-8')
+        current_user.phone = form.phone.data
+        current_user.email = form.email.data
+        current_user.address = form.address.data
+        current_user.password = hashed_password
+        db.session.commit()
+        flash('Your Account has been updated!', 'success')
+        return redirect(url_for('dashboard'))
     content = render_template(f'my_account.html', form=form)
     return content
 
+@app.route('/publish', methods={'POST'})
+@login_required
+def publish():
+    form = AddBookForm()
+    if form.validate_on_submit():
+        book = Book(title=form.title.data,
+                    subtitle=form.subtitle.data,
+                    description=form.description.data,
+                    genre=form.genre.data,
+                    cover=form.cover.data,
+                    manuscript=form.manuscript.data,
+                    price=form.price.data)
+        db.session.add(book)
+        db.session.commit()
+        flash('Congratulation! your book has been published', 'success')
+        return redirect(url_for('dashboard'))
+    content = render_template(f'Publish.html', form=form)
+    return content

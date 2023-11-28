@@ -1,40 +1,85 @@
 <h1 class="title"> Publish</h1>
 <div class="publish-continer">
-    <form method="post" class="col1">
-        <label>Book Title</label>
-        <input type="text">
+    <form method="post" class="col1" action="{{  url_for('publish')  }}" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        {{ form.title.label }}
+        {% if form.title.errors %}
+            {{ form.title(class="is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.title.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ form.title() }}
+        {% endif %}
 
-        <label>Book Subtitle</label>
-        <input type="text">
+        {{ form.subtitle.label }}
+        {% if form.subtitle.errors %}
+            {{ form.subtitle(class="is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.subtitle.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ form.subtitle() }}
+        {% endif %}
 
-        <label>Description</label>
-        <input type="text">
+        {{ form.description.label }}
+        {% if form.description.errors %}
+            {{ form.description(class="is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.description.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ form.description() }}
+        {% endif %}
 
-        <label>Genre</label>
-        <select id="genre" name="genre" aria-placeholder="Genre">
-            <option value="" disabled selected>Genre</option>
-            <option value="classics">Classics</option>
-            <option value="Detective and Mystery">Detective and Mystery</option>
-            <option value="Fantasy">Fantasy</option>
-            <option value="Biographies">Biographies</option>
-            <option value="Horror">Horror</option>
-            <option value="Romance">Romance</option>
-            <option value="Sci-Fi">Sci-Fi</option>
-            <option value="Poetry">Poetry</option>
-        </select>
+        {{ form.genre.label }}
+        {% if form.genre.errors %}
+            {{ form.genre(class="is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.genre.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ form.genre() }}
+        {% endif %}
+        
+        {{ form.cover.label(class="custom-file-upload") }}
+        {{ form.cover(class="custom-file-upload") }}
+        {% if form.cover.errors %}
+            {% for error in form.cover.errors %}
+                <span class="text-danger">{{ error }}</span><br>
+            {% endfor %}
+        {% endif %}
 
-        <label>Upload cover file</label>
-        <label for="file-upload" class="custom-file-upload">
-            Upload file
-        </label>
-        <input id="file-upload" type="file" />
+        {{ form.manuscript.label(class="custom-file-upload") }}
+        {{ form.manuscript(class="custom-file-upload") }}
+        {% if form.manuscript.errors %}
+            {% for error in form.manuscript.errors %}
+                <span class="text-danger">{{ error }}</span><br>
+            {% endfor %}
+        {% endif %}
 
-        <label>Upload manuscript file</label>
-        <label for="file-manuscript" class="custom-file-upload">
-            Upload file
-        </label>
-        <input id="file-manuscript" type="file" />
-        <button type="submit" class="btn">Update
-        </button>
+        {{ form.price.label }}
+        {% if form.price.errors %}
+            {{ form.price(class="is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.price.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ form.price() }}
+        {% endif %}
+
+        <div>
+            {{ form.submit(class="btn") }}
+        </div>
     </form>
 </div>

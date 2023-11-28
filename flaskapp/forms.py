@@ -1,8 +1,10 @@
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileAllowed, FileRequired
 from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, SelectField
 from wtforms.validators import DataRequired, Length, Email, ValidationError, Optional
 from flaskapp.models import User
+from flaskapp import bcrypt
 
 
 class RegistrationForm(FlaskForm):
@@ -43,10 +45,26 @@ class UpdateAccountForm(FlaskForm):
             user = User.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError('That email is taken, please choose a different one')
-    
-    def validate_old_password(FlaskForm, old_password):
-        if old_password.data != current_user.password:
-            raise ValidationError('The password you have entered is incorrect.')
+            
+
+    def validate_old_password(self, old_password):
+        if not bcrypt.check_password_hash(current_user.password, old_password.data):
+            raise ValidationError('Incorrect old password. Please try again.')
         
 
-            
+class AddBookForm(FlaskForm):
+    title = StringField('Book Title', validators=[DataRequired(), Length(min=10, max=60)])
+    subtitle = StringField('Book Subitle', validators=[DataRequired()])
+    description = StringField('Description', validators=[DataRequired()])
+    genre = SelectField('Genre', choices=[('Classics', 'Classics'),
+                                          ('Detective and mystery', 'Detective and mystery'),
+                                          ('Fantasy', 'Fantasy'),
+                                          ('Biographies', 'Biographies'),
+                                          ('Horror', 'Horror'),
+                                          ('Romance', 'Romance'),
+                                          ('Sci-Fi', 'Sci-Fi'),
+                                          ('Poetry', 'Poetry')], validators=[DataRequired()])
+    cover = FileField('Upload cover file', validators=[FileRequired(), FileAllowed(['jpg', 'png'])])
+    manuscript = FileField('Upload manuscript file', validators=[FileRequired(), FileAllowed(['pdf'])])
+    price= StringField('Price', validators=[DataRequired()])
+    submit = SubmitField('Publish')
