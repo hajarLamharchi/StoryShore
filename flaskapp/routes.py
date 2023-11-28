@@ -1,9 +1,10 @@
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, request, jsonify
 from flaskapp.models import User, Book
 from flaskapp.forms import RegistrationForm, LoginForm, UpdateAccountForm, AddBookForm
 from flaskapp import app, db, bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
-
+from werkzeug.utils import secure_filename
+import os
 
 @app.route('/', strict_slashes=False)
 @app.route('/home', strict_slashes=False)
@@ -67,7 +68,7 @@ def dashboard():
     return render_template('Dashboard.html')
 
 
-@app.route('/dashboard/<tab_name>')
+@app.route('/dashboard/<tab_name>', strict_slashes=False)
 @login_required
 def load_content(tab_name):
     form = UpdateAccountForm()
@@ -83,7 +84,7 @@ def load_content(tab_name):
     content = render_template(f'{tab_name}.html', form=form)
     return content
 
-@app.route('/update_account', methods={'POST'})
+@app.route('/update_account', methods={'POST'}, strict_slashes=False)
 @login_required
 def update_account():
     form = UpdateAccountForm()
@@ -99,21 +100,32 @@ def update_account():
     content = render_template(f'my_account.html', form=form)
     return content
 
-@app.route('/publish', methods={'POST'})
+@app.route('/publish', methods={'POST'}, strict_slashes=False)
 @login_required
 def publish():
     form = AddBookForm()
     if form.validate_on_submit():
+        cover = request.files['cover']
+        manuscript = request.files['manuscript']
         book = Book(title=form.title.data,
                     subtitle=form.subtitle.data,
                     description=form.description.data,
                     genre=form.genre.data,
-                    cover=form.cover.data,
-                    manuscript=form.manuscript.data,
-                    price=form.price.data)
+                    cover=cover.filename,
+                    manuscript=manuscript.filename,
+                    price=form.price.data,
+                     author_id=current_user.id)
         db.session.add(book)
         db.session.commit()
         flash('Congratulation! your book has been published', 'success')
         return redirect(url_for('dashboard'))
+    flash('File type not allowed', 'danger')
     content = render_template(f'Publish.html', form=form)
     return content
+
+@app.route('/mybooks', methods={'GET'}, strict_slashes=False)
+@login_required
+def getBooksByUser():
+    books = db.session.query(Book).all()
+    return jsonify(books)
+

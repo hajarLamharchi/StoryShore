@@ -13,6 +13,10 @@ $(document).ready(function () {
     $('#publish').click(function(event){
         fetchData('Publish');
         setActiveTab(this)
+        $.get("http://127.0.0.1:5000/mybooks", function(data){
+            console.log(data)
+
+        });
 
     });
     $('#account').click(function(event){

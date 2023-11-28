@@ -31,6 +31,7 @@ class Book(db.Model):
     manuscript = db.Column(db.String(128), nullable=False)
     price= db.Column(db.Integer)
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    #cover = db.Column(db.LargeBinary)
 
     def __repr__(self):
         return f"Book('{self.id}','{self.title}', '{self.subtitle}', '{self.genre}')"
