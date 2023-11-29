@@ -73,6 +73,7 @@ def dashboard():
 def load_content(tab_name):
     form = UpdateAccountForm()
     form1 = AddBookForm()
+    form2 = AddBookForm()
     if tab_name == 'my_account':
         form.phone.data = current_user.phone
         form.email.data = current_user.email 
@@ -81,6 +82,8 @@ def load_content(tab_name):
         return render_template(f'{tab_name}.html', form=form)
     if tab_name == 'Publish':
         return render_template(f'{tab_name}.html', form=form1)
+    if tab_name == 'MyBooks':
+        return render_template(f'{tab_name}.html', form=form2)
     content = render_template(f'{tab_name}.html', form=form)
     return content
 
@@ -104,23 +107,32 @@ def update_account():
 @login_required
 def publish():
     form = AddBookForm()
+    books = Book.query.all()
     if form.validate_on_submit():
         cover = request.files['cover']
         manuscript = request.files['manuscript']
-        book = Book(title=form.title.data,
-                    subtitle=form.subtitle.data,
-                    description=form.description.data,
-                    genre=form.genre.data,
-                    cover=cover.filename,
-                    manuscript=manuscript.filename,
-                    price=form.price.data,
-                     author_id=current_user.id)
-        db.session.add(book)
-        db.session.commit()
-        flash('Congratulation! your book has been published', 'success')
-        return redirect(url_for('dashboard'))
+        if cover and manuscript:
+            cover_filename = secure_filename(cover.filename)
+            manuscript_filename = secure_filename(manuscript.filename)
+
+            os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+
+            cover.save(os.path.join(app.config['UPLOAD_FOLDER'], cover_filename))
+            manuscript.save(os.path.join(app.config['UPLOAD_FOLDER'], manuscript_filename))
+            book = Book(title=form.title.data,
+                        subtitle=form.subtitle.data,
+                        description=form.description.data,
+                        genre=form.genre.data,
+                        cover=cover_filename,
+                        manuscript=manuscript_filename,
+                        price=form.price.data,
+                        author_id=current_user.id)
+            db.session.add(book)
+            db.session.commit()
+            flash('Congratulation! your book has been published', 'success')
+            return redirect(url_for('dashboard'))
     flash('File type not allowed', 'danger')
-    content = render_template(f'Publish.html', form=form)
+    content = render_template(f'MyBooks.html', form=form, books=books)
     return content
 
 @app.route('/mybooks', methods={'GET'}, strict_slashes=False)

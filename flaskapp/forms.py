@@ -3,7 +3,7 @@ from flask_wtf.file import FileField, FileAllowed, FileRequired
 from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, SelectField
 from wtforms.validators import DataRequired, Length, Email, ValidationError, Optional
-from flaskapp.models import User
+from flaskapp.models import User, Book
 from flaskapp import bcrypt
 
 
@@ -68,3 +68,8 @@ class AddBookForm(FlaskForm):
     manuscript = FileField('Upload manuscript file', validators=[FileRequired(), FileAllowed(['pdf'])])
     price= StringField('Price', validators=[DataRequired()])
     submit = SubmitField('Publish')
+
+    def validate_title(self, title):
+        book = Book.query.filter_by(title=title.data).first()
+        if Book:
+            raise ValidationError('That titleis taken, please choose a different one')
