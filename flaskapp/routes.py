@@ -83,7 +83,7 @@ def load_content(tab_name):
     if tab_name == 'Publish':
         return render_template(f'{tab_name}.html',  form=form1)
     if tab_name == 'MyBooks':
-        books = db.session.query(Book).filter(Book.author_id == "3")
+        books = db.session.query(Book).filter(Book.author_id == current_user.id)
         myBooks = []
         for book in books:
             myBooks.append(book.to_dict())
