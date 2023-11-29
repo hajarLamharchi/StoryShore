@@ -1,4 +1,4 @@
-from flask import render_template, url_for, flash, redirect, request, jsonify
+from flask import send_from_directory, render_template, url_for, flash, redirect, request, jsonify
 from flaskapp.models import User, Book
 from flaskapp.forms import RegistrationForm, LoginForm, UpdateAccountForm, AddBookForm
 from flaskapp import app, db, bcrypt
@@ -81,9 +81,13 @@ def load_content(tab_name):
        # form.new_password.data = current_user.password
         return render_template(f'{tab_name}.html', form=form)
     if tab_name == 'Publish':
-        return render_template(f'{tab_name}.html', form=form1)
+        return render_template(f'{tab_name}.html',  form=form1)
     if tab_name == 'MyBooks':
-        return render_template(f'{tab_name}.html', form=form2)
+        books = db.session.query(Book).filter(Book.author_id == "3")
+        myBooks = []
+        for book in books:
+            myBooks.append(book.to_dict())
+        return render_template(f'{tab_name}.html',  books=myBooks, form=form2)
     content = render_template(f'{tab_name}.html', form=form)
     return content
 
@@ -138,6 +142,13 @@ def publish():
 @app.route('/mybooks', methods={'GET'}, strict_slashes=False)
 @login_required
 def getBooksByUser():
-    books = db.session.query(Book).all()
-    return jsonify(books)
+    books = db.session.query(Book).filter(Book.author_id == "3")
+    myBooks = []
+    for book in books:
+        myBooks.append(book.to_dict())
+    return jsonify(myBooks)
+
+@app.route('/books/<path:filename>')
+def get_image(filename):
+    return send_from_directory(os.path.join(os.getcwd(), 'books'), filename)
 

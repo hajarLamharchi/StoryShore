@@ -1,6 +1,6 @@
 from flaskapp import db, login_manager
 from flask_login import UserMixin
-
+import json
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -35,3 +35,10 @@ class Book(db.Model):
 
     def __repr__(self):
         return f"Book('{self.id}','{self.title}', '{self.subtitle}', '{self.genre}')"
+    
+    def to_dict(self):
+        new_dict = self.__dict__.copy()
+        new_dict["__class__"] = self.__class__.__name__
+        if "_sa_instance_state" in new_dict:
+            del new_dict["_sa_instance_state"]
+        return new_dict
