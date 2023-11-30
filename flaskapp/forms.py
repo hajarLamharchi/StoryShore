@@ -53,7 +53,7 @@ class UpdateAccountForm(FlaskForm):
         
 
 class AddBookForm(FlaskForm):
-    title = StringField('Book Title', validators=[DataRequired(), Length(min=10, max=60)])
+    title = StringField('Book Title', validators=[DataRequired()])
     subtitle = StringField('Book Subitle', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
     genre = SelectField('Genre', choices=[('Classics', 'Classics'),
@@ -72,4 +72,27 @@ class AddBookForm(FlaskForm):
     def validate_title(self, title):
         book = Book.query.filter_by(title=title.data).first()
         if Book:
-            raise ValidationError('That titleis taken, please choose a different one')
+            raise ValidationError('That title is taken, please choose a different one')
+        
+
+class UpdateBookForm(FlaskForm):
+    title = StringField('Book Title', validators=[DataRequired()])
+    subtitle = StringField('Book Subitle', validators=[DataRequired()])
+    description = StringField('Description', validators=[DataRequired()])
+    genre = SelectField('Genre', choices=[('Classics', 'Classics'),
+                                          ('Detective and mystery', 'Detective and mystery'),
+                                          ('Fantasy', 'Fantasy'),
+                                          ('Biographies', 'Biographies'),
+                                          ('Horror', 'Horror'),
+                                          ('Romance', 'Romance'),
+                                          ('Sci-Fi', 'Sci-Fi'),
+                                          ('Poetry', 'Poetry')], validators=[DataRequired()])
+    cover = FileField('Upload cover file', validators=[FileRequired(), FileAllowed(['jpg', 'png'])])
+    manuscript = FileField('Upload manuscript file', validators=[FileRequired(), FileAllowed(['pdf'])])
+    price= StringField('Price', validators=[DataRequired()])
+    submit = SubmitField('Update')
+
+    def validate_title(self, title):
+        book = Book.query.filter_by(title=title.data).first()
+        if Book:
+            raise ValidationError('That title is taken, please choose a different one')

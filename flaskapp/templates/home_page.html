@@ -94,8 +94,12 @@
                 <p>Step into our online bookstore, where the world of captivating stories awaits. Explore a carefully curated selection of best-selling books, effortlessly purchase new releases, and immerse yourself in the joy of reading. Your next literary adventure is just a click away, combining the thrill of discovery with the ease of acquiring your favorite titles. Welcome to a book lover's paradise, where stories come to life with every turn of the page</p>
                 <div class="about-container-buttons">
                     {% if current_user.is_authenticated %}
-                        <button id="buy_button_authenticated">Buy a book</button>
-                        <button id="publish_button_authenticated">Publish a book</button>
+                        {% if current_user.usertype == "writer" %}
+                            <button id="buy_button_authenticated">Buy a book</button>
+                            <button id="publish_button_authenticated">Publish a book</button>
+                        {% else %}
+                            <button id="buy_button_authenticated">Buy a book</button>
+                        {% endif %}
                     {% else %}
                         <button id="buy_button">Buy a book</button>
                         <button id="publish_button">Publish a book</button>
@@ -106,13 +110,12 @@
         <div class="pink-container help" id="contact_offset">
             <div class="contact-details">
                 <p class="title">need anything?</p>
-                <p>Social Media</p>
-                <h2>@reallygreatsite</h2>
-                <p>Email Address</p>
-                <h2>hello@reallygreatsite.com</h2>
-                <p>Phone Number</p>
-                <h2>(123) 456 7890</h2>
-                
+                <p>Contributers</p>
+                <h2>Hajar LAMHARCHI</h2>
+                <h2>Elaa HIDRI</h2>
+                <p>Email Addresses</p>
+                <h2>hajar.lamharchi@gmail.com</h2>
+                <h2>elahidri.eh@gmail.com</h2>    
             </div>
     
             <div class="contact-picture">

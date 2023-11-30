@@ -13,7 +13,19 @@ body{
     box-shadow: 1px 1px 8px 2px rgb(228, 227, 227);
 
 }
+
+.navbar1{
+    position: relative;
+    color: black;
+    height: 12%;
+    box-shadow: 1px 1px 8px 2px rgb(228, 227, 227);
+
+}
 .navbar a{
+    color: black;
+   
+}
+.navbar1 a{
     color: black;
    
 }
@@ -32,7 +44,7 @@ body{
 }
 .menu-item{
     font-size: 18px;
-    padding: 15px 30px  ;
+    padding: 15px 30px;
 }
 .active{
     font-weight: 600;
@@ -43,19 +55,19 @@ body{
     padding-bottom: 2%;
 }
 .content-container{
-    width: 80%;
-    height: 100%;
+    width: 80% ;
+    height: 100% ;
     padding: 2% 0 0 5%;
       
 }
 .book-container{
-    padding: 2% 0;
-    display: flex;
+    padding: 2% 0 ;
+    display: flex ;
     height: 80%; 
     gap: 25px;
-    flex-wrap: wrap;
-    width: 98%;
-    overflow-y: auto;
+    flex-wrap: wrap ;
+    width: 98% t;
+    overflow-y: auto ;
 }
 .Book-item{
     display: flex;
@@ -88,6 +100,8 @@ padding-bottom: 10px;
     font-size: 13px;
     cursor: pointer;
     color: white;
+    transform: translateX(-100px);
+
     
 }
 .publish-continer{

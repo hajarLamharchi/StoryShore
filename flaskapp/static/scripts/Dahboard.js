@@ -21,6 +21,10 @@ $(document).ready(function () {
         setActiveTab(this)
     });
 
+    $('#edit-btn').click(function () {
+        window.location.href = '/updatebook';
+    });
+
     function fetchData(file_name){
         fetch('/dashboard/'+file_name)
         .then(response => response.text())

@@ -1,6 +1,6 @@
 from flask import send_from_directory, render_template, url_for, flash, redirect, request, jsonify
 from flaskapp.models import User, Book
-from flaskapp.forms import RegistrationForm, LoginForm, UpdateAccountForm, AddBookForm
+from flaskapp.forms import RegistrationForm, LoginForm, UpdateAccountForm, AddBookForm, UpdateBookForm
 from flaskapp import app, db, bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
 from werkzeug.utils import secure_filename
@@ -151,4 +151,33 @@ def getBooksByUser():
 @app.route('/books/<path:filename>')
 def get_image(filename):
     return send_from_directory(os.path.join(os.getcwd(), 'books'), filename)
+
+
+@app.route('/updatebook/<int:book_id>', methods=['GET', 'POST'], strict_slashes=False)
+@login_required
+def updateBook(book_id):
+    book = Book.query.get(book_id)
+    form = UpdateBookForm()
+    if form.validate_on_submit():
+        cover = request.files['cover']
+        manuscript = request.files['manuscript']
+        if cover and manuscript:
+            cover_filename = secure_filename(cover.filename)
+            manuscript_filename = secure_filename(manuscript.filename)
+
+            os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+
+            cover.save(os.path.join(app.config['UPLOAD_FOLDER'], cover_filename))
+            manuscript.save(os.path.join(app.config['UPLOAD_FOLDER'], manuscript_filename))
+            book.title = form.title.data
+            book.subtitle = form.subtitle.data
+            book.description = form.description.data
+            book.genre = form.genre.data
+            book.cover = cover_filename
+            book.manuscript = manuscript_filename
+            book.price = form.price.data
+            db.session.commit()
+            flash('Congratulation! your book has been updated', 'success')
+            return redirect(url_for('dashboard'), book_id=book_id)
+    return render_template('MyBooks.html', form=form, book=book)
 
