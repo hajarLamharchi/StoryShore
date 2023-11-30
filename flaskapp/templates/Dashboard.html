@@ -16,8 +16,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
     <link rel="stylesheet" href="../static/styles/navbar.css">
     <link rel="stylesheet" href="../static/styles/Dashboard.css">
     <script type="text/javascript" src="../static/scripts/main.js"></script>
-    <script type="text/javascript" src="../static/scripts/Dahboard.js"></script>
-
+    <script type="text/javascript" src="../static/scripts/Dahboard.js"></script> 
 
     <title>StoryShore</title>
     <link rel="icon" type="image/x-icon" href="../static/images/icon.png">
@@ -57,6 +56,9 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
       
         <div class="content-container">
             {% if tab_name %}{% include tab_name + '.html' %}{% endif %}
+            <script>
+                var tab_name = "{{ tab_name }}";
+            </script>
         </div>
     </div>
 

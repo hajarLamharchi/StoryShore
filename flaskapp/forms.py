@@ -69,10 +69,11 @@ class AddBookForm(FlaskForm):
     price= StringField('Price', validators=[DataRequired()])
     submit = SubmitField('Publish')
 
+    """
     def validate_title(self, title):
         book = Book.query.filter_by(title=title.data).first()
         if Book:
-            raise ValidationError('That title is taken, please choose a different one')
+            raise ValidationError('That title is taken, please choose a different one')"""
         
 
 class UpdateBookForm(FlaskForm):
@@ -92,7 +93,9 @@ class UpdateBookForm(FlaskForm):
     price= StringField('Price', validators=[DataRequired()])
     submit = SubmitField('Update')
 
+"""
     def validate_title(self, title):
         book = Book.query.filter_by(title=title.data).first()
         if Book:
             raise ValidationError('That title is taken, please choose a different one')
+            """

@@ -50,7 +50,6 @@
             {{ form.genre() }}
         {% endif %}
         
-        {{ form.cover.label(class="custom-file-upload") }}
         {{ form.cover(class="custom-file-upload") }}
         {% if form.cover.errors %}
             {% for error in form.cover.errors %}
@@ -58,7 +57,6 @@
             {% endfor %}
         {% endif %}
 
-        {{ form.manuscript.label(class="custom-file-upload") }}
         {{ form.manuscript(class="custom-file-upload") }}
         {% if form.manuscript.errors %}
             {% for error in form.manuscript.errors %}

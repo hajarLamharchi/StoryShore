@@ -6,7 +6,7 @@
             <img src="{{ url_for('get_image', filename=book.cover) }}" alt="book">
             
 
-            <button type="button" class="btn  edit-btn" data-toggle="modal" data-target="#exampleModalLong">
+            <button type="button" class="btn  edit-btn" id="edit-btn" data-toggle="modal" data-target="#exampleModalLong">
                 Edit
               </button>
               
@@ -20,7 +20,23 @@
                       </button>
                     </div>
                     <div class="modal-body">
+                         
                         <form method="post" class="form_update" action="{{  url_for('updateBook', book_id=book.id)  }}" enctype="multipart/form-data">
+                           <script>
+                            var bookId = "{{ book.id }}";
+                            fetch(`/get_book_data/${bookId}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                // Populate form fields with fetched data
+                                document.querySelector('[name="title"]').value = data.title;
+                                document.querySelector('[name="subtitle"]').value = data.subtitle;
+                                document.querySelector('[name="description"]').value = data.description;
+                                document.querySelector('[name="genre"]').value = data.genre;
+                                document.querySelector('[name="price"]').value = data.price;
+                                // Add other fields as needed
+                            })
+                            .catch(error => console.error('Error fetching data:', error));
+                           </script>
                             {{ form.hidden_tag() }}
                             <div>
                                 {{ form.title.label }}

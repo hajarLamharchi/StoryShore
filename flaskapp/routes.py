@@ -64,32 +64,42 @@ def books():
 @app.route('/dashboard', strict_slashes=False)
 @login_required
 def dashboard():
-    
-    return render_template('Dashboard.html')
+    tab_name = request.args.get('tab_name', 'dash')
+    form = None  # Initialize form to None
+
+    if tab_name == 'my_account':
+        form = UpdateAccountForm()
+        form.phone.data = current_user.phone
+        form.email.data = current_user.email 
+        form.address.data = current_user.address
+    elif tab_name == 'Publish':
+        form = AddBookForm()
+    elif tab_name == 'MyBooks':
+        books = db.session.query(Book).filter(Book.author_id == current_user.id).all()
+        myBooks = [book.to_dict() for book in books]
+        form = AddBookForm()
+
+    return render_template('Dashboard.html', tab_name=tab_name, form=form, books=myBooks if tab_name == 'MyBooks' else None)
 
 
 @app.route('/dashboard/<tab_name>', strict_slashes=False)
 @login_required
 def load_content(tab_name):
-    form = UpdateAccountForm()
-    form1 = AddBookForm()
-    form2 = AddBookForm()
+    form = None
+    books = None
+
     if tab_name == 'my_account':
+        form = UpdateAccountForm()
         form.phone.data = current_user.phone
         form.email.data = current_user.email 
         form.address.data = current_user.address
-       # form.new_password.data = current_user.password
-        return render_template(f'{tab_name}.html', form=form)
-    if tab_name == 'Publish':
-        return render_template(f'{tab_name}.html',  form=form1)
-    if tab_name == 'MyBooks':
-        books = db.session.query(Book).filter(Book.author_id == current_user.id)
-        myBooks = []
-        for book in books:
-            myBooks.append(book.to_dict())
-        return render_template(f'{tab_name}.html',  books=myBooks, form=form2)
-    content = render_template(f'{tab_name}.html', form=form)
-    return content
+    elif tab_name == 'Publish':
+        form = AddBookForm()
+    elif tab_name == 'MyBooks':
+        books = db.session.query(Book).filter(Book.author_id == current_user.id).all()
+        form = AddBookForm()
+
+    return redirect(url_for('dashboard', tab_name=tab_name, form=form, books=books))
 
 @app.route('/update_account', methods={'POST'}, strict_slashes=False)
 @login_required
@@ -134,9 +144,10 @@ def publish():
             db.session.add(book)
             db.session.commit()
             flash('Congratulation! your book has been published', 'success')
-            return redirect(url_for('dashboard'))
-    flash('File type not allowed', 'danger')
-    content = render_template(f'MyBooks.html', form=form, books=books)
+            return redirect(url_for('dashboard', tab_name="Publish"))
+    flash(form.errors, 'danger')
+    return redirect(url_for('dashboard', tab_name="Publish", form=form, books=books))
+    content = render_template(f'Dashboard.html', form=form, books=books)
     return content
 
 @app.route('/mybooks', methods={'GET'}, strict_slashes=False)
@@ -152,7 +163,18 @@ def getBooksByUser():
 def get_image(filename):
     return send_from_directory(os.path.join(os.getcwd(), 'books'), filename)
 
-
+@app.route('/get_book_data/<int:book_id>')
+def get_book_data(book_id):
+    book = Book.query.get(book_id)
+    form = UpdateBookForm()
+    return jsonify({
+        'title': book.title,
+        'subtitle': book.subtitle,
+        'description': book.description,
+        'genre': book.genre,
+        'price': book.price,
+        
+    })
 @app.route('/updatebook/<int:book_id>', methods=['GET', 'POST'], strict_slashes=False)
 @login_required
 def updateBook(book_id):
@@ -178,6 +200,7 @@ def updateBook(book_id):
             book.price = form.price.data
             db.session.commit()
             flash('Congratulation! your book has been updated', 'success')
-            return redirect(url_for('dashboard'), book_id=book_id)
-    return render_template('MyBooks.html', form=form, book=book)
+            return redirect(url_for('load_content', tab_name="MyBooks"))
+    flash(form.errors, 'danger')
+    return redirect(url_for('load_content', tab_name="MyBooks"))
 
