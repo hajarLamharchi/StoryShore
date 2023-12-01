@@ -72,7 +72,14 @@
     font-weight: bold;
     font-size: 16px;
     margin-right: 30px;
+}
 
+.username1 {
+    color: black;
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 16px;
+    margin-right: 30px;
 }
 
 .navbar .menu{

@@ -29,6 +29,7 @@
             {% if current_user.is_authenticated %}
                 <a class="navbar-item basket"><img src="../static/images/basket.png" alt="basket" width="30"></a>
                 <a class="navbar-item" href="{{ url_for('dashboard') }}"><img src="../static/images/user.png" alt="user" width="30"></a>
+                <p class="username1">{{ current_user.username }}</p>
                 <a class="navbar-item" href="{{ url_for('logout') }}"><img src="../static/images/Logout.png" alt="user" width="30"></a>
             {% else %}
                 <a class="navbar-item basket"><img src="../static/images/basket.png" alt="basket" width="30"></a>
@@ -55,46 +56,24 @@
         </div>
         <div class="Books">
             <div class="pink-container">
-                <div class="book-preview-container">
-                    <div class="book-preview">
-                        <img src="../static/images/book1.jpg" alt="Book Title 3">
-                        <div class="shop-now">
-                            <img src="../static/images/shopping-bag.png" alt="Book Title 1" width="20">                
-                                <div class="tooltip">Add to card</div>
-                         </div>
-                        <div class="book-details">
-                            <p class="author">kevin helman</p>
-                            <p class="book-title">The Sons of the Empire</p>
-                            <p class="price">$14.99</p>
-                            
+                <div class="book-preview-container1">
+
+                    {% for book in books %}
+                        <div class="book-preview">
+                            <img src="{{ url_for('get_image', filename=book.cover) }}" alt="Book Title 3">
+                            <div class="shop-now">
+                                <img src="../static/images/shopping-bag.png" alt="Book Title 1" width="20">                
+                                    <div class="tooltip">Add to card</div>
+                            </div>
+                            <div class="book-details">
+                                <p class="author">{{ book.author.username }}</p>
+                                <p class="book-title">{{ book.title }}</p>
+                                <p class="price">{{ book.price }}</p>
+                                
+                            </div>
                         </div>
-                    </div>
-                    <div class="book-preview">
-                        <img src="../static/images/book2.jpg" alt="Book Title 3">
-                        <div class="shop-now">
-                            <img src="../static/images/shopping-bag.png" alt="Book Title 1" width="20">                
-                                <div class="tooltip">Add to card</div>
-                         </div>
-                        <div class="book-details">
-                            <p class="author">kevin helman</p>
-                            <p class="book-title">The Sons of the Empire</p>
-                            <p class="price">$14.99</p>
-                            
-                        </div>
-                    </div>
-                    <div class="book-preview">
-                        <img src="../static/images/book3.jpg" alt="Book Title 3">
-                        <div class="shop-now">
-                            <img src="../static/images/shopping-bag.png" alt="Book Title 1" width="20">                
-                                <div class="tooltip">Add to card</div>
-                         </div>
-                        <div class="book-details">
-                            <p class="author">kevin helman</p>
-                            <p class="book-title">The Sons of the Empire</p>
-                            <p class="price">$14.99</p>
-                            
-                        </div>
-                    </div>
+                    {% endfor %}
+
                 </div>
                 <div class="enum">
                     <div class="nb">1</div>

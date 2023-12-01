@@ -1,6 +1,7 @@
 from flaskapp import db, login_manager
 from flask_login import UserMixin
 import json
+from datetime import datetime
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -42,3 +43,11 @@ class Book(db.Model):
         if "_sa_instance_state" in new_dict:
             del new_dict["_sa_instance_state"]
         return new_dict
+    
+
+class Purchase(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    book_id = db.Column(db.Integer, db.ForeignKey('book.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    amount = db.Column(db.Integer, nullable=False)

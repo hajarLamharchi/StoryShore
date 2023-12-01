@@ -58,7 +58,8 @@ def register():
 
 @app.route('/books', strict_slashes=False)
 def books():
-    return render_template('shop.html')
+    books = Book.query.all()
+    return render_template('shop.html', books=books)
 
 
 @app.route('/dashboard', strict_slashes=False)
@@ -178,8 +179,8 @@ def get_book_data(book_id):
 @app.route('/updatebook/<int:book_id>', methods=['GET', 'POST'], strict_slashes=False)
 @login_required
 def updateBook(book_id):
-    book = Book.query.get(book_id)
-    form = UpdateBookForm()
+    book = Book.query.filter_by(id=book_id).first()
+    form = UpdateBookForm(obj=book)
     if form.validate_on_submit():
         cover = request.files['cover']
         manuscript = request.files['manuscript']

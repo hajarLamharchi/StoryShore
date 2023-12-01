@@ -77,9 +77,9 @@ class AddBookForm(FlaskForm):
         
 
 class UpdateBookForm(FlaskForm):
-    title = StringField('Book Title', validators=[DataRequired()])
-    subtitle = StringField('Book Subitle', validators=[DataRequired()])
-    description = StringField('Description', validators=[DataRequired()])
+    title = StringField('Book Title')
+    subtitle = StringField('Book Subitle')
+    description = StringField('Description',)
     genre = SelectField('Genre', choices=[('Classics', 'Classics'),
                                           ('Detective and mystery', 'Detective and mystery'),
                                           ('Fantasy', 'Fantasy'),
@@ -87,10 +87,10 @@ class UpdateBookForm(FlaskForm):
                                           ('Horror', 'Horror'),
                                           ('Romance', 'Romance'),
                                           ('Sci-Fi', 'Sci-Fi'),
-                                          ('Poetry', 'Poetry')], validators=[DataRequired()])
-    cover = FileField('Upload cover file', validators=[FileRequired(), FileAllowed(['jpg', 'png'])])
-    manuscript = FileField('Upload manuscript file', validators=[FileRequired(), FileAllowed(['pdf'])])
-    price= StringField('Price', validators=[DataRequired()])
+                                          ('Poetry', 'Poetry')],)
+    cover = FileField('Upload cover file', validators=[FileAllowed(['jpg', 'png'])])
+    manuscript = FileField('Upload manuscript file', validators=[FileAllowed(['pdf'])])
+    price= StringField('Price')
     submit = SubmitField('Update')
 
 """
