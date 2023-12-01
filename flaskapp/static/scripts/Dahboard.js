@@ -84,29 +84,20 @@ $(document).ready(function () {
         window.location.href = "/dashboard/my_account"
         setActiveTab(this)
     });
-
-    $('#edit-btn').click(function () {
-        console.log("{{ book.id }}")
-        
-        fetch(`/get_book_data/${bookId}`)
-        .then(response => response.json())
-        .then(data => {
-            // Populate form fields with fetched data
-            document.querySelector('[name="title"]').value = data.title;
-            document.querySelector('[name="subtitle"]').value = data.subtitle;
-            document.querySelector('[name="description"]').value = data.description;
-            document.querySelector('[name="genre"]').value = data.genre;
-            document.querySelector('[name="price"]').value = data.price;
-            // Add other fields as needed
-        })
-        .catch(error => console.error('Error fetching data:', error));
-
-       
-    });
-
+    $("#new_password").on("input", function(event){
+        var new_pass = $("#new_password").val()
+        if (!new_pass){
+            $("#old_password").prop('required', false)
+        }
+        else{
+            $("#old_password").prop('required', true)
+        }
+    })
+  
     function setActiveTab(tab){
         $('.menu-item').each(function () {
             $(this).removeClass("active");
+          
         });
          $(tab).addClass("active");
 

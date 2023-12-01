@@ -1,7 +1,7 @@
 <h1 class="title"> My Account</h1>
 
             <div class="signup_container">
-                <form method="POST" action="{{  url_for('update_account')  }}">
+                <form method="POST" id="update_account_form" action="{{  url_for('update_account')  }}">
                     {{ form.hidden_tag() }}
                     <div class="inputs">
                         <div class="col1">  

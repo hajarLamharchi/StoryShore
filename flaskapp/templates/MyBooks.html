@@ -6,137 +6,143 @@
             <img src="{{ url_for('get_image', filename=book.cover) }}" alt="book">
             
 
-            <button type="button" class="btn  edit-btn" id="edit-btn" data-toggle="modal" data-target="#exampleModalLong">
+            <button type="button" class="btn  edit-btn"  data-toggle="modal" data-target="#exampleModalLong" onclick="openEditModal('{{ book.id }}')">
                 Edit
               </button>
               
-              <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLongTitle">Update Book</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                         
-                        <form method="post" class="form_update" action="{{  url_for('updateBook', book_id=book.id)  }}" enctype="multipart/form-data">
-                           <script>
-                            var bookId = "{{ book.id }}";
-                            fetch(`/get_book_data/${bookId}`)
-                            .then(response => response.json())
-                            .then(data => {
-                                // Populate form fields with fetched data
-                                document.querySelector('[name="title"]').value = data.title;
-                                document.querySelector('[name="subtitle"]').value = data.subtitle;
-                                document.querySelector('[name="description"]').value = data.description;
-                                document.querySelector('[name="genre"]').value = data.genre;
-                                document.querySelector('[name="price"]').value = data.price;
-                                // Add other fields as needed
-                            })
-                            .catch(error => console.error('Error fetching data:', error));
-                           </script>
-                            {{ form.hidden_tag() }}
-                            <div>
-                                {{ form.title.label }}
-                                {% if form.title.errors %}
-                                    {{ form.title(class="is-invalid") }}
-                                    <div class="invalid-feedback">
-                                        {% for error in form.title.errors %}
-                                            <span>{{ error }}</span>
-                                        {% endfor %}
-                                    </div>
-                                {% else %}
-                                    {{ form.title() }}
-                                {% endif %}
-                            </div>
-                          
-                            <div>
-                                {{ form.subtitle.label }}
-                            {% if form.subtitle.errors %}
-                                {{ form.subtitle(class="is-invalid") }}
-                                <div class="invalid-feedback">
-                                    {% for error in form.subtitle.errors %}
-                                        <span>{{ error }}</span>
-                                    {% endfor %}
-                                </div>
-                            {% else %}
-                                {{ form.subtitle() }}
-                            {% endif %}
-                            </div>
-                            
-                            <div>
-                                {{ form.description.label }}
-                            {% if form.description.errors %}
-                                {{ form.description(class="is-invalid") }}
-                                <div class="invalid-feedback">
-                                    {% for error in form.description.errors %}
-                                        <span>{{ error }}</span>
-                                    {% endfor %}
-                                </div>
-                            {% else %}
-                                {{ form.description() }}
-                            {% endif %}
-                            </div>
-                            
-                            <div>
-                                {{ form.genre.label }}
-                            {% if form.genre.errors %}
-                                {{ form.genre(class="is-invalid") }}
-                                <div class="invalid-feedback">
-                                    {% for error in form.genre.errors %}
-                                        <span>{{ error }}</span>
-                                    {% endfor %}
-                                </div>
-                            {% else %}
-                                {{ form.genre() }}
-                            {% endif %}
-                            </div>
-                            
-                            <div>
-                                {{ form.cover.label }}
-                                {{ form.cover() }}
-                                {% if form.cover.errors %}
-                                    {% for error in form.cover.errors %}
-                                        <span class="text-danger">{{ error }}</span><br>
-                                    {% endfor %}
-                                {% endif %}
-                            </div>
-                           
-                            <div>
-                                {{ form.manuscript.label }}
-                                {{ form.manuscript }}
-                                {% if form.manuscript.errors %}
-                                    {% for error in form.manuscript.errors %}
-                                        <span class="text-danger">{{ error }}</span><br>
-                                    {% endfor %}
-                                {% endif %}
-                            </div>
-                           
-                            <div>
-                                {{ form.price.label }}
-                                {% if form.price.errors %}
-                                    {{ form.price(class="is-invalid") }}
-                                    <div class="invalid-feedback">
-                                        {% for error in form.price.errors %}
-                                            <span>{{ error }}</span>
-                                        {% endfor %}
-                                    </div>
-                                {% else %}
-                                    {{ form.price() }}
-                                {% endif %}
-                            </div>
-                           
-                            <div>
-                                {{ form.submit(class="btn") }}
-                            </div>
-                        </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              
 
         </div>
     {% endfor %}
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Update Book</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                 
+                <form method="post" class="form_update" action="" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                    <div>
+                        {{ form.title.label }}
+                        {% if form.title.errors %}
+                            {{ form.title(class="is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.title.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.title() }}
+                        {% endif %}
+                    </div>
+                  
+                    <div>
+                        {{ form.subtitle.label }}
+                    {% if form.subtitle.errors %}
+                        {{ form.subtitle(class="is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.subtitle.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.subtitle() }}
+                    {% endif %}
+                    </div>
+                    
+                    <div>
+                        {{ form.description.label }}
+                    {% if form.description.errors %}
+                        {{ form.description(class="is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.description.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.description() }}
+                    {% endif %}
+                    </div>
+                    
+                    <div>
+                        {{ form.genre.label }}
+                    {% if form.genre.errors %}
+                        {{ form.genre(class="is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.genre.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.genre() }}
+                    {% endif %}
+                    </div>
+                    
+                    <div>
+                        {{ form.cover.label }}
+                        {{ form.cover() }}
+                        {% if form.cover.errors %}
+                            {% for error in form.cover.errors %}
+                                <span class="text-danger">{{ error }}</span><br>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                   
+                    <div>
+                        {{ form.manuscript.label }}
+                        {{ form.manuscript }}
+                        {% if form.manuscript.errors %}
+                            {% for error in form.manuscript.errors %}
+                                <span class="text-danger">{{ error }}</span><br>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                   
+                    <div>
+                        {{ form.price.label }}
+                        {% if form.price.errors %}
+                            {{ form.price(class="is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.price.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.price() }}
+                        {% endif %}
+                    </div>
+                   
+                    <div>
+                        {{ form.submit(class="btn") }}
+                    </div>
+                    <script>
+                            function openEditModal(bookId) {
+                                console.log(bookId)
+                                fetch(`/get_book_data/${bookId}`)
+                                .then(response => response.json())
+                                .then(data => {
+                                    console.log(data);
+                                    // Populate form fields with fetched data
+                                    document.querySelector('[name="title"]').value = data.title;
+                                    document.querySelector('[name="subtitle"]').value = data.subtitle;
+                                    document.querySelector('[name="description"]').value = data.description;
+                                    document.querySelector('[name="genre"]').value = data.genre;
+                                    document.querySelector('[name="price"]').value = data.price;
+                                    // Add other fields as needed
+                                    form = $('.form_update')
+                                    form.attr('action', '/updatebook/'+bookId)
+                                })
+                                .catch(error => console.error('Error fetching data:', error));
+                            }
+                    </script>
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
 </div>

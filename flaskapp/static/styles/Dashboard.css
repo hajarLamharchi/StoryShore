@@ -44,6 +44,7 @@ body{
 }
 .menu-item{
     font-size: 18px;
+    cursor: pointer;
     padding: 15px 30px;
 }
 .active{
@@ -66,7 +67,7 @@ body{
     height: 80%; 
     gap: 25px;
     flex-wrap: wrap ;
-    width: 98% t;
+    width: 98%;
     overflow-y: auto ;
 }
 .Book-item{
@@ -136,7 +137,13 @@ padding-bottom: 10px;
     margin: auto;
     border-radius: 50%;
     padding: 50px 19px;
+    width: 250px;
+    height: 250px;
+    display: flex;
     background: #ffe8d1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 .dash .price{
     font-size: 45px;
