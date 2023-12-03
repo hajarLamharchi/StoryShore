@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    var cartId;
+    init();
     RefreshTotal(null);
     $('.sus_button').click(function (event) {
         let amount = 0;
@@ -9,10 +11,12 @@ $(document).ready(function () {
         if (amount == 0) {
             removeItem(this);
         }
+        else{
+            update(cartId, amount)
+        }
         mountInput.text(amount);
         RefreshTotal(this);
         RefreshTotal(null);
-
     });
     $('.add_button').click(function (event) {
         let amount = 0;
@@ -20,6 +24,8 @@ $(document).ready(function () {
         const currentamount = mountInput.text();
         amount = parseInt(currentamount);
         amount = amount + 1;
+        amount = Math.min(amount, 10)
+        update(cartId, amount)
         mountInput.text(amount);
         RefreshTotal(this);
         RefreshTotal(null);
@@ -33,7 +39,10 @@ $(document).ready(function () {
         const productRow = $(Input).parent().parent();
         productRow.slideUp(300, function () {
             productRow.remove();
-            RefreshTotal(null);
+            RefreshTotal(null); 
+            fetch("/removeFromCart/"+cartId,{ method: 'POST'})
+            .then(Response=>{
+            })
         })
     }
     function RefreshTotal(Input) {
@@ -41,22 +50,56 @@ $(document).ready(function () {
         if (Input == null) {
             $('.item').each(function () {
                 const prodcutPrice = parseFloat($(this).children('.price').children('.price_text').text());
-                const productQty = parseFloat($(this).children('quantity').children('book_amount').text());
                 total += prodcutPrice;
+
             })
-            $('#total_price').text(total);
+            $('#total_price').text(total.toFixed(2));
+
         }
         else{
             const unitPriceInput = $(Input).parent().parent().children('.Author').children('.original_price');
             const priceInput = $(Input).parent().parent().children('.price').children('.price_text');;
             const qty = parseFloat($(Input).parent().children('.book_amount').text());
             priceInput.text(parseFloat(unitPriceInput.text()) * qty);
+
         }
     }
-    function blink(Input, txt){
-        $(Input).FadeOut(200, function(){
-            Input.text(txt);
-            Input.FadeIn(200)
+    function init(){
+        $('.price_text').each(function () {
+            const unitPriceInput = $(this).parent().parent().children('.Author').children('.original_price');
+            const qty = parseFloat($(this).parent().parent().children('.quantity').children('.book_amount').text());
+            $(this).text(parseFloat(unitPriceInput.text()) * qty);
+
+        })
+    }
+    window.getId = function(cartID)
+    {
+        cartId= cartID;
+        
+    }
+    window.Purchase = function(){
+        $(".item").each(function () {
+            const Price = parseFloat($(this).children('.price').children('.price_text').text());
+            const input = this
+            const bookid = this.getAttribute('data-cart-id') 
+            const bookId = this.getAttribute('data-book-id')
+            fetch("/Purchase/"+bookId+"/"+Price ,{ method: 'POST'})
+            .then(Response=>{
+                const productRow = $(input);
+                productRow.slideUp(300, function () {
+                    productRow.remove();
+                    RefreshTotal(null); 
+                    fetch("/removeFromCart/"+ bookid,{ method: 'POST'})
+                    .then(Response=>{
+                    })
+                })
+            })
         })
     }
 });
+
+function update(cartID, qty){
+    fetch("/updateCart/"+cartID+"/"+qty,{ method: 'POST'})
+        .then(Response=>{
+        })
+}

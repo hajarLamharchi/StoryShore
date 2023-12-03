@@ -61,9 +61,6 @@ $(document).ready(function () {
         case "Publish": setActiveTab('#publish'); break;
         case "my_account": setActiveTab('#account'); break;
     }
-    
-  
-    
     $('#dashboard').click(function(event){
         window.location.href = "/dashboard/dash"
         setActiveTab(this)
@@ -97,12 +94,7 @@ $(document).ready(function () {
     function setActiveTab(tab){
         $('.menu-item').each(function () {
             $(this).removeClass("active");
-          
         });
          $(tab).addClass("active");
-
     }
-  
-
-
 });

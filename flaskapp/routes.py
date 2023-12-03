@@ -1,5 +1,5 @@
 from flask import send_from_directory, render_template, url_for, flash, redirect, request, jsonify
-from flaskapp.models import User, Book, Purchase
+from flaskapp.models import User, Book, Purchase, Cart
 from flaskapp.forms import RegistrationForm, LoginForm, UpdateAccountForm, AddBookForm, UpdateBookForm
 from flaskapp import app, db, bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
@@ -71,11 +71,20 @@ def dashboard():
     elif tab_name == 'Publish':
         form = AddBookForm()
     elif tab_name == 'MyBooks':
-        books = db.session.query(Book).filter(Book.author_id == "3").all()
+        books = db.session.query(Book).filter(Book.author_id == current_user.id).all()
         myBooks = [book.to_dict() for book in books]
         form = AddBookForm()
+    elif tab_name == 'dash':
+        Purchases = db.session.query(Purchase).filter(Purchase.user_id == current_user.id)
+        total = 0
+        for purchase in Purchases:
+            total += int(purchase.amount)
 
-    return render_template('Dashboard.html', tab_name=tab_name, form=form, books=myBooks if tab_name == 'MyBooks' else None)
+    return render_template('Dashboard.html',
+                            tab_name=tab_name,
+                            form=form,
+                            books=myBooks if tab_name == 'MyBooks' else None,
+                            total=total if tab_name == 'dash' else None)
 
 @app.route('/dashboard/<tab_name>', strict_slashes=False)
 @login_required
@@ -195,7 +204,6 @@ def updateBook(book_id):
             manuscript_filename = secure_filename(manuscript.filename)
             os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
             manuscript.save(os.path.join(app.config['UPLOAD_FOLDER'], manuscript_filename))       
-
         book.title = form.title.data
         book.subtitle = form.subtitle.data
         book.description = form.description.data
@@ -209,18 +217,61 @@ def updateBook(book_id):
     showError(form)
     return redirect(url_for('load_content', tab_name="MyBooks"))
 
-@app.route("/Purchase/bookId/amount", methods=['POST'], strict_slashes=False)
+@app.route("/Purchase/<bookId>/<amount>", methods=['POST'], strict_slashes=False)
 @login_required
 def purchase(bookId, amount):
-    purchase = Purchase(bookId=bookId, user_id=current_user, amount=amount)
+    purchase = Purchase(book_id=bookId, user_id=current_user.id, amount=amount)
     db.session.add(purchase)
     db.session.commit()
-    flash('Congratulations! Your purchase has been successfully completed', 'success')
+    return ('Status:OK')
 
 @app.route("/cart", strict_slashes=False)
 @login_required
 def goToCart():
-    return render_template('cart.html')
+    carts = db.session.query(Cart).filter(Cart.user_id == current_user.id)
+    cartInfo = []
+    for cart in carts:
+        book = Book.query.filter(Book.id == cart.book_id).first()
+        author = User.query.filter(User.id == book.author_id).first()
+        cartInfo.append({'id': cart.id,
+                         'quantity': cart.quantity,
+                         'bookId': cart.book_id,
+                         'book': book.title,
+                         'cover': book.cover,
+                         'price': book.price,
+                         'Author': author.username})
+
+    return render_template('cart.html', carts=cartInfo)
+
+@app.route("/addToCart/<int:book_id>", methods=['POST'], strict_slashes=False)
+def addToCart(book_id):
+    cart = Cart.query.filter(Cart.book_id == book_id).first()
+    if not cart: 
+        cart = Cart(quantity=1,
+                book_id=book_id,
+                user_id= current_user.id)
+        db.session.add(cart)
+    else:
+        cart.quantity += 1
+    db.session.commit()
+    return ('Status:OK')
+
+@app.route("/updateCart/<int:cart_id>/<int:qty>", methods=['POST'], strict_slashes=False)
+def updateCart(cart_id, qty):
+    cart = Cart.query.get(cart_id)
+    cart.quantity = qty
+    app.logger.info(cart.id)
+    app.logger.info(qty)
+    db.session.commit()
+    return ('Status:OK')
+
+@app.route("/removeFromCart/<int:cart_id>", methods=['POST'], strict_slashes=False)
+def RemoveFromCart(cart_id):
+    cart = Cart.query.get(cart_id)
+    db.session.delete(cart)
+    db.session.commit()
+    return ('Status:OK')
+
 
 def showError(form):
     for field, error_messages in form.errors.items():

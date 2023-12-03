@@ -4,14 +4,9 @@
         <div class="Book-item">
             <p class="book-name">{{ book.title }}</p>
             <img src="{{ url_for('get_image', filename=book.cover) }}" alt="book">
-            
-
             <button type="button" class="btn  edit-btn"  data-toggle="modal" data-target="#exampleModalLong" onclick="openEditModal('{{ book.id }}')">
                 Edit
               </button>
-              
-              
-
         </div>
     {% endfor %}
     <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">

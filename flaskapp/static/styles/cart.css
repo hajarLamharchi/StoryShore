@@ -93,3 +93,6 @@ hr{
 .price_text::before, #total_price::before, .original_price::before{
     content: '$';
 }
+.Author .id{
+    display: none;
+}

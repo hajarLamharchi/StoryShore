@@ -9,6 +9,7 @@
 .pink-container{
     background-color: unset;
     padding: 2% 0;
+    overflow: hidden;
 }
 .filter-container{
     margin-top: 60px;

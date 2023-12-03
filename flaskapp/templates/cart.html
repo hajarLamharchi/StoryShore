@@ -30,41 +30,26 @@
         </div>
         <div class="container">
             <p class="cart-text">Shopping cart</p>
-            <div class="item">
-                <img src="../static/images/book1.jpg">
+            {% for cart in carts %}
+            <div class="item" data-cart-id='{{cart.id}}' data-book-id="{{cart.bookId}}" >
+                
+                <img src="{{ url_for('get_image', filename=cart.cover) }}">
                 <div class="Author">
-                    <h4>The book of the lies</h4>
-                    <p>Elian elves</p>
-                    <p class="original_price">9.99</p>
+                    <h4>{{cart.book}}</h4>
+                    <p>{{cart.username}}</p>
+                    <p class="original_price">{{cart.price}}</p>
                 </div>
                 <div class="quantity">
-                    <Button class="sus_button">-</Button>
-                    <p class="book_amount">1</p>
-                    <Button class="add_button">+</Button>
+                    <Button class="sus_button" onclick="getId('{{cart.id}}')">-</Button>
+                    <p class="book_amount">{{cart.quantity}}</p>
+                    <Button class="add_button" onclick="getId('{{cart.id}}')">+</Button>
                 </div>
                 <div class="price">
-                    <p class="price_text">9.99</p>
-                    <a class="remove_button">Remove</a>
+                    <p class="price_text">{{cart.price}}</p>
+                    <a class="remove_button" onclick="getId('{{cart.id}}')">Remove</a>
                 </div>
             </div>
-            <div class="item">
-                <img src="../static/images/book1.jpg">
-                <div class="Author">
-                    <h4>The book of the lies</h4>
-                    <p>Elian elves</p>
-                    <p class="original_price">9.99</p>
-                </div>
-                <div class="quantity">
-                    <Button class="sus_button">-</Button>
-                    <p class="book_amount">1</p>
-                    <button class="add_button">+</Button>
-                </div>
-                <div class="price">
-                    <p class="price_text">9.99</p>
-                    <a class="remove_button">Remove</a>
-                </div>
-            </div>
-            
+            {% endfor %}
             <hr>
 
             <div class="total">
@@ -75,7 +60,7 @@
                     </div>
                     <h1 id="total_price">9.99</h1>
                 </div>
-                <button class="checkout_button">Checkout</button>
+                <button class="checkout_button" onclick="Purchase()">Checkout</button>
 
             </div>
         </div>
