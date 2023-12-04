@@ -1,10 +1,12 @@
 from flask import send_from_directory, render_template, url_for, flash, redirect, request, jsonify
 from flaskapp.models import User, Book, Purchase, Cart
 from flaskapp.forms import RegistrationForm, LoginForm, UpdateAccountForm, AddBookForm, UpdateBookForm
-from flaskapp import app, db, bcrypt
+from flaskapp import app, db, bcrypt, mail
 from flask_login import login_user, current_user, logout_user, login_required
 from werkzeug.utils import secure_filename
 import os
+from flask_mail import Message
+
 
 @app.route('/', strict_slashes=False)
 @app.route('/home', strict_slashes=False)
@@ -277,3 +279,24 @@ def showError(form):
     for field, error_messages in form.errors.items():
         for error_message in error_messages:
             flash(f"{error_message}")
+
+
+def send_upload_email(email, upload_link):
+    try:
+        msg = Message('Upload your Book', recipients=[email], sender="noreply@storyshore.com")
+        msg.body = f'Click the following link to upload your book: {upload_link}'
+        mail.send(msg)
+    except Exception as e:
+        print(f"Error sending email: {e}")
+
+
+@app.route('/upload_product', methods=['GET', 'POST'])
+@login_required
+def upload_product():
+    p = Purchase.query.filter_by(user_id=current_user.id).first()
+    book = Book.query.get(p.book_id)
+    if book:
+        upload_link = book.cover
+        send_upload_email(current_user.email, upload_link)
+        flash('An e-mail has been sent to upload your purchased book')
+    return render_template('cart.html')
