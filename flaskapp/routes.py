@@ -223,6 +223,9 @@ def updateBook(book_id):
 @login_required
 def purchase(bookId, amount):
     purchase = Purchase(book_id=bookId, user_id=current_user.id, amount=amount)
+    book = Book.query.get(bookId)
+    upload_link =  book.manuscript 
+    send_upload_email("elahidri.eh@gmail.com", upload_link)
     db.session.add(purchase)
     db.session.commit()
     return ('Status:OK')
@@ -284,10 +287,13 @@ def showError(form):
 def send_upload_email(email, upload_link):
     try:
         msg = Message('Upload your Book', recipients=[email], sender="noreply@storyshore.com")
-        msg.body = f'Click the following link to upload your book: {upload_link}'
+        path = os.path.join(os.getcwd(), 'books', upload_link)
+        with open(path, 'rb') as file:
+            msg.attach(upload_link, "application/pdf", file.read())
+        msg.body = f'Click the following link to upload your book'
         mail.send(msg)
     except Exception as e:
-        print(f"Error sending email: {e}")
+        app.logger.info(f"Error sending email: {e}")
 
 
 @app.route('/upload_product', methods=['GET', 'POST'])

@@ -78,23 +78,30 @@ $(document).ready(function () {
         
     }
     window.Purchase = function(){
+        $("#loadingScreen").css("display", "flex");
         $(".item").each(function () {
             const Price = parseFloat($(this).children('.price').children('.price_text').text());
             const input = this
             const bookid = this.getAttribute('data-cart-id') 
             const bookId = this.getAttribute('data-book-id')
+
             fetch("/Purchase/"+bookId+"/"+Price ,{ method: 'POST'})
-            .then(Response=>{
+            .then(()=>{
                 const productRow = $(input);
                 productRow.slideUp(300, function () {
                     productRow.remove();
                     RefreshTotal(null); 
                     fetch("/removeFromCart/"+ bookid,{ method: 'POST'})
                     .then(Response=>{
+                        if ($(".item").length == 0)
+                        {
+                            $("#loadingScreen").css("display", "none");
+                        }
                     })
                 })
             })
         })
+
     }
 });
 

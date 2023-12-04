@@ -60,11 +60,14 @@
                     </div>
                     <h1 id="total_price">9.99</h1>
                 </div>
-                <button class="checkout_button" onclick="Purchase()" href="{{ url_for('upload_product') }}">Checkout</button>
+                <button class="checkout_button" onclick="Purchase()" >Checkout</button>
 
             </div>
         </div>
-    </body>
+        <div class="loading" id="loadingScreen">
+            <div class="loader"></div>
+            <p>Processing...</p>
+        </div>    </body>
     <footer>
         <div class="footer_flex">
             <div class="footer_flex_section1">
