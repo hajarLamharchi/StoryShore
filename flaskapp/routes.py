@@ -225,7 +225,7 @@ def purchase(bookId, amount):
     purchase = Purchase(book_id=bookId, user_id=current_user.id, amount=amount)
     book = Book.query.get(bookId)
     upload_link =  book.manuscript 
-    send_upload_email("elahidri.eh@gmail.com", upload_link)
+    send_upload_email(current_user.email, upload_link)
     db.session.add(purchase)
     db.session.commit()
     return ('Status:OK')
