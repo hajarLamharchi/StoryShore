@@ -1,6 +1,6 @@
 from flask import send_from_directory, render_template, url_for, flash, redirect, request, jsonify
 from flaskapp.models import User, Book, Purchase, Cart
-from flaskapp.forms import RegistrationForm, LoginForm, UpdateAccountForm, AddBookForm, UpdateBookForm
+from flaskapp.forms import RegistrationForm, LoginForm, UpdateAccountForm, AddBookForm, UpdateBookForm, FindBook
 from flaskapp import app, db, bcrypt, mail
 from flask_login import login_user, current_user, logout_user, login_required
 from werkzeug.utils import secure_filename
@@ -56,8 +56,9 @@ def register():
 
 @app.route('/books', strict_slashes=False)
 def books():
+    form = FindBook()
     books = Book.query.all()
-    return render_template('shop.html', books=books)
+    return render_template('shop.html', books=books, form=form)
 
 @app.route('/dashboard', strict_slashes=False)
 @login_required
@@ -306,3 +307,27 @@ def upload_product():
         send_upload_email(current_user.email, upload_link)
         flash('An e-mail has been sent to upload your purchased book')
     return render_template('cart.html')
+
+
+@app.route('/find_book', methods=['POST', 'GET'])
+def find_book():
+    form = FindBook()
+    results = None
+    if form.validate_on_submit():
+        title = form.title.data
+        genre = form.genre.data
+        author = form.author.data
+        print(title)
+        print(genre)
+        print(author)
+        print('hello')
+        if title:
+            results = db.session.query(Book).filter((Book.title.contains(title))).all()
+        elif genre:
+            results = db.session.query(Book).filter((Book.genre.contains(genre))).all()
+        elif author:
+            results = db.session.query(Book).join(User).filter((User.username.contains(author))).all()
+      
+        if not results:
+            flash("The book you are looking for can't be found")
+        return render_template('search_result.html', form=form, results=results)

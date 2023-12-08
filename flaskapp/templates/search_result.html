@@ -39,9 +39,9 @@
             {% endif %}
         </div>
         <div class="filter-container">
-            <form method="get">
+            <form method="get" class="col1" action="{{  url_for('find_book')  }}" enctype="multipart/form-data">
                 {{ form.hidden_tag() }}
-                {{ form.title.label(class="title") }}
+                {{ form.title.label }}
                 {% if form.title.errors %}
                     {{ form.title(class="is-invalid") }}
                     <div class="invalid-feedback">
@@ -53,7 +53,7 @@
                     {{ form.title() }}
                 {% endif %}
 
-                {{ form.genre.label(class="genre") }}
+                {{ form.genre.label }}
                 {% if form.genre.errors %}
                     {{ form.genre(class="is-invalid") }}
                     <div class="invalid-feedback">
@@ -65,7 +65,7 @@
                     {{ form.genre() }}
                 {% endif %}
 
-                {{ form.author.label(class="author") }}
+                {{ form.author.label }}
                 {% if form.author.errors %}
                     {{ form.author(class="is-invalid") }}
                     <div class="invalid-feedback">
@@ -78,14 +78,14 @@
                 {% endif %}
                 
                 <div>
-                    {{ form.submit(class="btn") }}
+                    {{ form.submit() }}
                 </div>
             </form>
         </div>
         <div class="Books">
             <div class="pink-container">
                 <div class="book-preview-container1">
-                    {% for book in books %}
+                    {% for book in results %}
                         <div class="book-preview">
                             <img src="{{ url_for('get_image', filename=book.cover) }}" alt="Book Title 3">
                             <div class="shop-now" onclick="addToCart('{{book.id}}')" >

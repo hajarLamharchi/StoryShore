@@ -106,3 +106,17 @@ class UpdateBookForm(FlaskForm):
         if Book:
             raise ValidationError('That title is taken, please choose a different one')
             """
+
+
+class FindBook(FlaskForm):
+    title = StringField('Title')
+    genre = SelectField('Genre', choices=[('Classics', 'Classics'),
+                                          ('Detective and mystery', 'Detective and mystery'),
+                                          ('Fantasy', 'Fantasy'),
+                                          ('Biographies', 'Biographies'),
+                                          ('Horror', 'Horror'),
+                                          ('Romance', 'Romance'),
+                                          ('Sci-Fi', 'Sci-Fi'),
+                                          ('Poetry', 'Poetry')])
+    author = StringField('Author')
+    submit = SubmitField('Find a Book')
