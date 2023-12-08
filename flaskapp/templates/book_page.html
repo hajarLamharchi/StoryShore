@@ -8,6 +8,8 @@
         <link rel="stylesheet" href="../static/styles/navbar.css">
         <link rel="stylesheet" href="../static/styles/book.css">
         <script type="text/javascript" src="../static/scripts/main.js"></script>
+        <script type="text/javascript" src="../static/scripts/book.js"></script>
+
         <title>StoryShore</title>
     <link rel="icon" type="image/x-icon" href="../static/images/icon.png">
     </head>
@@ -23,29 +25,31 @@
                     <li><a href="#contact">CONTACT</a></li>
                 </ul>
             </data>
-            <a class="navbar-item basket"><img src="../static/images/basket.png" alt="basket" width="30"></a>
-            <a class="navbar-item" href="{{ url_for('login') }}"><img src="../static/images/user.png" alt="user" width="30"></a>
+            {% if current_user.is_authenticated %}
+                <a class="navbar-item basket" href="{{ url_for('goToCart') }}"><img src="../static/images/basket.png" alt="basket" width="30"></a>
+                <a class="navbar-item" href="{{ url_for('dashboard') }}"><img src="../static/images/user.png" alt="user" width="30"></a>
+                <p class="username1">{{ current_user.username }}</p>
+                <a class="navbar-item" href="{{ url_for('logout') }}"><img src="../static/images/Logout.png" alt="user" width="30"></a>
+            {% else %}
+                <a class="navbar-item basket"><img src="../static/images/basket.png" alt="basket" width="30"></a>
+                <a class="navbar-item" href="{{ url_for('login') }}"><img src="../static/images/user.png" alt="user" width="30"></a>
+            {% endif %} 
         </div>
         <div class="book-container">
             <div class="img-conatiner">
-                <img src="../static/images/book1.jpg">
-                <div class="small-img-preview">
-                    <img class="small" src="../static/images/book1.jpg">
-                    <img class="small" src="../static/images/book2.jpg">
-                    <img class="small" src="../static/images/book3.jpg">
-                </div>
+                <img src="{{ url_for('get_image', filename=book.cover) }}">
             </div>
             <div class="info-container">
                 <div class="price-bubble">
-                    <p>9.99$</p>
+                    <p>{{book.price}}$</p>
                 </div>
-                <h2>The lost sand</h2>
-                <h4>Where no man finds home</h4>
-                <p>Aliana brus</p>
+                <h2>{{book.title}}</h2>
+                <h4>{{book.subtitle}}</h4>
+                <p>book.author</p>
                 <div class="space"></div>
                 <h4>Description</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vestibulum vel lorem nec varius. Donec dignissim aliquam nisi, venenatis pretium augue egestas eu. Ut venenatis, dolor at consequat finibus</p>
-                <button class="cart-button">Add to cart</button>
+                <p>{{book.description}}</p>
+                <button class="cart-button" onclick="addToCart('{{book.id}}',  '{{book.title}}')">Add to cart</button>
             </div>
         </div>    
         

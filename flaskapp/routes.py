@@ -183,8 +183,7 @@ def get_book_data(book_id):
         'subtitle': book.subtitle,
         'description': book.description,
         'genre': book.genre,
-        'price': book.price,
-        
+        'price': book.price,      
     })
 
 @app.route('/updatebook/<int:book_id>', methods=['GET', 'POST'], strict_slashes=False)
@@ -308,26 +307,40 @@ def upload_product():
         flash('An e-mail has been sent to upload your purchased book')
     return render_template('cart.html')
 
+@app.route('/book/<int:book_id>', methods=['GET', 'POST'])
+def getBook(book_id):
+    book = Book.query.get(book_id)
+    author = User.query.get(book.author_id)
+    book = {
+        'id': book.id,
+        'title': book.title,
+        'subtitle': book.subtitle,
+        'description': book.description,
+        'price': book.price,
+        'cover': book.cover,
+        'author': author.username
+    }
+    app.logger.info(book)
+    return render_template('book_page.html', book=book)
+
 
 @app.route('/find_book', methods=['POST', 'GET'])
 def find_book():
     form = FindBook()
-    results = None
+    results =  db.session.query(Book)
     if form.validate_on_submit():
         title = form.title.data
         genre = form.genre.data
         author = form.author.data
-        print(title)
-        print(genre)
-        print(author)
-        print('hello')
         if title:
-            results = db.session.query(Book).filter((Book.title.contains(title))).all()
-        elif genre:
-            results = db.session.query(Book).filter((Book.genre.contains(genre))).all()
-        elif author:
-            results = db.session.query(Book).join(User).filter((User.username.contains(author))).all()
+            results = results.filter((Book.title.contains(title)))
+        if genre:
+            results = results.filter((Book.genre.contains(genre)))
+        if author:
+            results = results.join(User).filter((User.username.contains(author)))
       
         if not results:
             flash("The book you are looking for can't be found")
-        return render_template('search_result.html', form=form, results=results)
+        return render_template('shop.html', form=form, books=results.all())
+    results =  Book.query.all()
+    return render_template('shop.html', form=form, books=results)

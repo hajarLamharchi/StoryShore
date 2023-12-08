@@ -39,7 +39,7 @@
             {% endif %}
         </div>
         <div class="filter-container">
-            <form method="get">
+            <form method="POST" action="{{  url_for('find_book')  }}">
                 {{ form.hidden_tag() }}
                 {{ form.title.label(class="title") }}
                 {% if form.title.errors %}
@@ -86,9 +86,9 @@
             <div class="pink-container">
                 <div class="book-preview-container1">
                     {% for book in books %}
-                        <div class="book-preview">
+                        <div class="book-preview" onclick="navigateToBook('{{book.id}}')">
                             <img src="{{ url_for('get_image', filename=book.cover) }}" alt="Book Title 3">
-                            <div class="shop-now" onclick="addToCart('{{book.id}}')" >
+                            <div class="shop-now" onclick="addToCart('{{book.id}}',  '{{book.title}}')" >
                                 <img src="../static/images/shopping-bag.png" alt="Book Title 1" width="20">                
                                     <div class="tooltip">Add to card</div>
                             </div>
@@ -110,46 +110,48 @@
                 </div>
             </div>
         </div>
-        <footer>
-            <div class="footer_flex">
-                <div class="footer_flex_section1">
-                    <h1>
-                        StoryShore
-                    </h1>
-                    <div class="line">
+        
+        
+    </body>
+    <footer>
+        <div class="footer_flex">
+            <div class="footer_flex_section1">
+                <h1>
+                    StoryShore
+                </h1>
+                <div class="line">
 
-                    </div>
-                    <h3>contact information</h3>
-                    <h5>privacy policy</h5>
                 </div>
-                <div class="footer_flex_section2">
-                    <h3>SITE MAP</h3>  
-                    <ul>
-                        <li>My business</li>
-                        <li>My products</li>
-                        <li>My services</li>
-                        <li>Gallery</li>
-                        <li>Contact</li>
-                        <li>Support</li>
-                    </ul> 
-                    <div class="copyrights">
-                        <h5>copyrights</h5>
-                        <img class="img" src="../static/images/cp.png">
-                        <h5>2023</h5> 
-                    </div>
-                </div>
-                <div class="footer_flex_section3">
-                    <input type="text" id="username" name="username" placeholder="Email address"/>
-                    <button class="subscribe">Subscribe</button>
-                    <div class="social">
-                        <img src="../static/images/fb.png">
-                        <img src="../static/images/insta.png">
-                        <img src="../static/images/in.png">
-                        <img src="../static/images/tt.png">
-                    </div>
-
+                <h3>contact information</h3>
+                <h5>privacy policy</h5>
+            </div>
+            <div class="footer_flex_section2">
+                <h3>SITE MAP</h3>  
+                <ul>
+                    <li>My business</li>
+                    <li>My products</li>
+                    <li>My services</li>
+                    <li>Gallery</li>
+                    <li>Contact</li>
+                    <li>Support</li>
+                </ul> 
+                <div class="copyrights">
+                    <h5>copyrights</h5>
+                    <img class="img" src="../static/images/cp.png">
+                    <h5>2023</h5> 
                 </div>
             </div>
-        </footer>
-    </body>
+            <div class="footer_flex_section3">
+                <input type="text" id="username" name="username" placeholder="Email address"/>
+                <button class="subscribe">Subscribe</button>
+                <div class="social">
+                    <img src="../static/images/fb.png">
+                    <img src="../static/images/insta.png">
+                    <img src="../static/images/in.png">
+                    <img src="../static/images/tt.png">
+                </div>
+
+            </div>
+        </div>
+    </footer>
 </html>

@@ -11,3 +11,14 @@ html{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 
 }
+.notification{
+    position: fixed;
+    width: 250px;
+    padding: 15px;
+    background: #d5d5d5d9;
+    border-radius: 2%;
+    text-align: center;
+    bottom: 0;
+    right: 0;
+    margin: 20px;
+}

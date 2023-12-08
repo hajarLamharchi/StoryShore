@@ -110,7 +110,8 @@ class UpdateBookForm(FlaskForm):
 
 class FindBook(FlaskForm):
     title = StringField('Title')
-    genre = SelectField('Genre', choices=[('Classics', 'Classics'),
+    genre = SelectField('Genre', choices=[('', ''),
+                                          ('Classics', 'Classics'),
                                           ('Detective and mystery', 'Detective and mystery'),
                                           ('Fantasy', 'Fantasy'),
                                           ('Biographies', 'Biographies'),

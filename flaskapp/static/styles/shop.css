@@ -18,6 +18,7 @@
     display: flex;
     justify-content: center;
     gap: 7px;
+    align-items: center;
 }
 .filter-container button{
     padding: 13px 19px;

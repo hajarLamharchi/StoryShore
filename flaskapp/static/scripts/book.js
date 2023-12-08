@@ -1,15 +1,12 @@
 $(document).ready(function () {
-   
-    let click = false
     window.addToCart = function(bookId, bookName){
-        click = true;
-        console.log(bookName);
+
         fetch("/addToCart/"+bookId,{ method: 'POST'}).then(()=>{
-            click = false;
-            let notif;
+            
+           
             if ($(".notification").length === 0)
             {
-                notif = notify(bookName + " is added to your cart");
+                notify(bookName + " is added to your cart");
             }
             else{
                 $(".notification").remove();
@@ -17,11 +14,7 @@ $(document).ready(function () {
             }
         })
     }
-    window.navigateToBook = function(bookId){
-        if (!click){ 
-            window.location.href = "/book/"+bookId;
-        }
-    }
+    
 });
 
 function notify(text){
@@ -33,8 +26,3 @@ function notify(text){
     }, 3000)
     return notif;
 }
-/*function addToCart(bookId){
-    fetch("/addToCart/"+bookId,{ method: 'POST'})
-}
-function navigateToBook(bookId){
-}*/
