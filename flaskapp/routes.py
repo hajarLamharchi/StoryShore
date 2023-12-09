@@ -1,3 +1,4 @@
+"""Defines all the routes of the application"""
 from flask import send_from_directory, render_template, url_for, flash, redirect, request, jsonify
 from flaskapp.models import User, Book, Purchase, Cart
 from flaskapp.forms import RegistrationForm, LoginForm, UpdateAccountForm, AddBookForm, UpdateBookForm, FindBook
@@ -11,10 +12,12 @@ from flask_mail import Message
 @app.route('/', strict_slashes=False)
 @app.route('/home', strict_slashes=False)
 def home():
+    """Defines the home page route"""
     return render_template('home_page.html')
 
 @app.route('/login', methods=['GET', 'POST'], strict_slashes=False)
 def login():
+    """Defines the login page"""
     if current_user.is_authenticated:
         return redirect(url_for('home'))
    
@@ -30,11 +33,13 @@ def login():
 
 @app.route('/logout', strict_slashes=False)
 def logout():
+    """Defines the logout route"""
     logout_user()
     return redirect(url_for('home'))
 
 @app.route('/register', methods=['GET', 'POST'], strict_slashes=False)
 def register():
+    """Defines the registration system"""
     if current_user.is_authenticated:
         return redirect(url_for('home'))
     
@@ -56,6 +61,7 @@ def register():
 
 @app.route('/books', strict_slashes=False)
 def books():
+    """Defines the route where users can discovers all the books"""
     form = FindBook()
     books = Book.query.all()
     return render_template('shop.html', books=books, form=form)
@@ -63,6 +69,7 @@ def books():
 @app.route('/dashboard', strict_slashes=False)
 @login_required
 def dashboard():
+    """Defines the dashboard page for writer"""
     tab_name = request.args.get('tab_name', 'dash')
     form = None  # Initialize form to None
 
@@ -92,6 +99,7 @@ def dashboard():
 @app.route('/dashboard/<tab_name>', strict_slashes=False)
 @login_required
 def load_content(tab_name):
+    """Defines the different sections of the dashboard"""
     form = None
     books = None
     total = 0
@@ -120,6 +128,7 @@ def load_content(tab_name):
 @app.route('/update_account', methods={'POST'}, strict_slashes=False)
 @login_required
 def update_account():
+    """Defines the route for updating account credentials"""
     form = UpdateAccountForm()
     if form.validate_on_submit():
         if not form.new_password.data:
@@ -143,6 +152,7 @@ def update_account():
 @app.route('/publish', methods={'POST'}, strict_slashes=False)
 @login_required
 def publish():
+    """Defines the route to publish a new book"""
     form = AddBookForm()
     books = Book.query.all()
     if form.validate_on_submit():
@@ -173,10 +183,12 @@ def publish():
 
 @app.route('/books/<path:filename>')
 def get_image(filename):
+    """Returns the path to the book cover"""
     return send_from_directory(os.path.join(os.getcwd(), 'books'), filename)
 
 @app.route('/get_book_data/<int:book_id>')
 def get_book_data(book_id):
+    """Returns the book information as a json"""
     book = Book.query.get(book_id)
     return jsonify({
         'title': book.title,
@@ -189,6 +201,7 @@ def get_book_data(book_id):
 @app.route('/updatebook/<int:book_id>', methods=['GET', 'POST'], strict_slashes=False)
 @login_required
 def updateBook(book_id):
+    """Defines the route to update the book information"""
     book = Book.query.filter_by(id=book_id).first()
     form = UpdateBookForm(obj=book)
     if form.validate_on_submit():
@@ -222,6 +235,7 @@ def updateBook(book_id):
 @app.route("/Purchase/<bookId>/<amount>", methods=['POST'], strict_slashes=False)
 @login_required
 def purchase(bookId, amount):
+    """Defines the purchase system"""
     purchase = Purchase(book_id=bookId, user_id=current_user.id, amount=amount)
     book = Book.query.get(bookId)
     upload_link =  book.manuscript 
@@ -233,6 +247,7 @@ def purchase(bookId, amount):
 @app.route("/cart", strict_slashes=False)
 @login_required
 def goToCart():
+    """Defines the cart route"""
     carts = db.session.query(Cart).filter(Cart.user_id == current_user.id)
     cartInfo = []
     for cart in carts:
@@ -249,7 +264,9 @@ def goToCart():
     return render_template('cart.html', carts=cartInfo)
 
 @app.route("/addToCart/<int:book_id>", methods=['POST'], strict_slashes=False)
+@login_required
 def addToCart(book_id):
+    """Defines the add to cart system"""
     cart = Cart.query.filter(Cart.book_id == book_id).first()
     if not cart: 
         cart = Cart(quantity=1,
@@ -263,6 +280,7 @@ def addToCart(book_id):
 
 @app.route("/updateCart/<int:cart_id>/<int:qty>", methods=['POST'], strict_slashes=False)
 def updateCart(cart_id, qty):
+    """Defines the update cart system"""
     cart = Cart.query.get(cart_id)
     cart.quantity = qty
     app.logger.info(cart.id)
@@ -272,6 +290,7 @@ def updateCart(cart_id, qty):
 
 @app.route("/removeFromCart/<int:cart_id>", methods=['POST'], strict_slashes=False)
 def RemoveFromCart(cart_id):
+    """Defines the remove from cart system"""
     cart = Cart.query.get(cart_id)
     db.session.delete(cart)
     db.session.commit()
@@ -279,12 +298,14 @@ def RemoveFromCart(cart_id):
 
 
 def showError(form):
+    """Returns the error message"""
     for field, error_messages in form.errors.items():
         for error_message in error_messages:
             flash(f"{error_message}")
 
 
 def send_upload_email(email, upload_link):
+    """Defines the system for sending upload link to the client email"""
     try:
         msg = Message('Upload your Book', recipients=[email], sender="noreply@storyshore.com")
         path = os.path.join(os.getcwd(), 'books', upload_link)
@@ -299,6 +320,7 @@ def send_upload_email(email, upload_link):
 @app.route('/upload_product', methods=['GET', 'POST'])
 @login_required
 def upload_product():
+    """Defines the route for uploading purchased product"""
     p = Purchase.query.filter_by(user_id=current_user.id).first()
     book = Book.query.get(p.book_id)
     if book:
@@ -309,6 +331,7 @@ def upload_product():
 
 @app.route('/book/<int:book_id>', methods=['GET', 'POST'])
 def getBook(book_id):
+    """Defines the route to display book information"""
     book = Book.query.get(book_id)
     author = User.query.get(book.author_id)
     book = {
@@ -321,11 +344,12 @@ def getBook(book_id):
         'author': author.username
     }
     app.logger.info(book)
-    return render_template('book_page.html', book=book)
+    return render_template('book_page.html', book=book, author=author)
 
 
 @app.route('/find_book', methods=['POST', 'GET'])
 def find_book():
+    """Defines the route for filtering book by title, genre, or author name"""
     form = FindBook()
     results =  db.session.query(Book)
     if form.validate_on_submit():

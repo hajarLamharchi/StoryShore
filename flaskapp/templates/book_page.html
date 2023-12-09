@@ -45,11 +45,15 @@
                 </div>
                 <h2>{{book.title}}</h2>
                 <h4>{{book.subtitle}}</h4>
-                <p>book.author</p>
+                <p>{{book.author}}</p>
                 <div class="space"></div>
                 <h4>Description</h4>
                 <p>{{book.description}}</p>
-                <button class="cart-button" onclick="addToCart('{{book.id}}',  '{{book.title}}')">Add to cart</button>
+                {% if current_user.is_authenticated %}
+                    <button class="cart-button" onclick="addToCart('{{book.id}}',  '{{book.title}}')">Add to cart</button>
+                {% else %}
+                    <a class="cart-button" href="{{ url_for('login') }}">Add to cart</a>
+                {% endif %}
             </div>
         </div>    
         

@@ -1,3 +1,4 @@
+"""Defines all the model used in the application"""
 from flaskapp import db, login_manager
 from flask_login import UserMixin
 import json
@@ -9,6 +10,7 @@ def load_user(user_id):
 
 
 class User(db.Model, UserMixin):
+    """Defines the user model"""
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(50), unique=True, nullable=False)
@@ -19,10 +21,12 @@ class User(db.Model, UserMixin):
     books = db.relationship('Book', backref='author', lazy=True)
 
     def __repr__(self):
+        """Returns a customized representation of a user instance"""
         return f"User('{self.id}','{self.usertype}', '{self.username}', '{self.email}')"
 
 
 class Book(db.Model):
+    """Defines the book model"""
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(20), unique=True, nullable=False)
     subtitle = db.Column(db.String(60), nullable=False)
@@ -35,6 +39,7 @@ class Book(db.Model):
     #cover = db.Column(db.LargeBinary)
 
     def __repr__(self):
+        """Returns a customized representation of a book instance"""
         return f"Book('{self.id}','{self.title}', '{self.subtitle}', '{self.genre}')"
     
     def to_dict(self):
@@ -46,6 +51,7 @@ class Book(db.Model):
     
 
 class Purchase(db.Model):
+    """Defines the purchase model"""
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     book_id = db.Column(db.Integer, db.ForeignKey('book.id'), nullable=False)
@@ -53,6 +59,7 @@ class Purchase(db.Model):
     amount = db.Column(db.Integer, nullable=False)
 
 class Cart(db.Model):
+    """Defines the cart model"""
     id = db.Column(db.Integer, primary_key=True)
     quantity = db.Column(db.Integer, nullable=False)
     book_id = db.Column(db.Integer, db.ForeignKey('book.id'), nullable=False)

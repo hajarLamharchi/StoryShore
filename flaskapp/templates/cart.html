@@ -25,8 +25,16 @@
                     <li><a href="#contact">CONTACT</a></li>
                 </ul>
             </data>
-            <a class="navbar-item basket"><img src="../static/images/basket.png" alt="basket" width="30"></a>
-            <a class="navbar-item" href="/login"><img src="../static/images/user.png" alt="user" width="30"></a>
+            {% if current_user.is_authenticated %}
+                <a class="navbar-item basket" href="{{ url_for('goToCart') }}"><img src="../static/images/basket.png" alt="basket" width="30"></a>
+                <a class="navbar-item" href="{{ url_for('dashboard') }}"><img src="../static/images/user.png" alt="user" width="30"></a>
+                <p class="username1">{{ current_user.username }}</p>
+                <a class="navbar-item" href="{{ url_for('logout') }}"><img src="../static/images/Logout.png" alt="user" width="30"></a>
+            {% else %}
+                <a class="navbar-item basket"><img src="../static/images/basket.png" alt="basket" width="30"></a>
+                <a class="navbar-item" href="{{ url_for('login') }}"><img src="../static/images/user.png" alt="user" width="30"></a>
+            {% endif %}
+        
         </div>
         <div class="container">
             <p class="cart-text">Shopping cart</p>

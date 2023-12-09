@@ -49,6 +49,7 @@ body{
     box-shadow: 1px 1px 5px #00000024;
     align-self: end;
     margin: 20px 0 0;
+    text-decoration: none;
 }
 .img-conatiner{
     width: 50%;
