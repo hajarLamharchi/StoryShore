@@ -42,7 +42,7 @@ class UpdateAccountForm(FlaskForm):
     address = StringField('Address', validators=[DataRequired()])
     phone = StringField('Phone', validators=[Optional()])
     old_password = PasswordField('Old Password', )
-    new_password = PasswordField('New Password', validators=[Length(min=8, max=20)])
+    new_password = PasswordField('New Password', )
     submit = SubmitField('Update')
 
     def validate_email(self, email):
@@ -62,6 +62,8 @@ class UpdateAccountForm(FlaskForm):
     def validate_new_password(self, new_password):
         """Checks if the new password is different from the old one"""
         if new_password.data:
+            setattr(new_password, "validators", [Length(min=8, max=20)])
+            new_password.validate(self)
             if  self.old_password.data == new_password.data:
                 raise ValidationError("You can't use your old password. Please try again.")
 

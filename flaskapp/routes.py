@@ -70,7 +70,10 @@ def books():
 @login_required
 def dashboard():
     """Defines the dashboard page for writer"""
-    tab_name = request.args.get('tab_name', 'dash')
+    if current_user.usertype == "writer":
+        tab_name = 'dash'
+    else: 
+        tab_name = 'my_account'
     form = None  # Initialize form to None
 
     if tab_name == 'my_account':
@@ -78,12 +81,6 @@ def dashboard():
         form.phone.data = current_user.phone
         form.email.data = current_user.email 
         form.address.data = current_user.address
-    elif tab_name == 'Publish':
-        form = AddBookForm()
-    elif tab_name == 'MyBooks':
-        books = db.session.query(Book).filter(Book.author_id == current_user.id).all()
-        myBooks = [book.to_dict() for book in books]
-        form = AddBookForm()
     elif tab_name == 'dash':
         Purchases = db.session.query(Purchase).filter(Purchase.user_id == current_user.id)
         total = 0
@@ -93,7 +90,6 @@ def dashboard():
     return render_template('Dashboard.html',
                             tab_name=tab_name,
                             form=form,
-                            books=myBooks if tab_name == 'MyBooks' else None,
                             total=total if tab_name == 'dash' else None)
 
 @app.route('/dashboard/<tab_name>', strict_slashes=False)
@@ -109,21 +105,26 @@ def load_content(tab_name):
         form.phone.data = current_user.phone
         form.email.data = current_user.email 
         form.address.data = current_user.address
-    elif tab_name == 'Publish':
-        form = AddBookForm()
-    elif tab_name == 'MyBooks':
-        books = db.session.query(Book).filter(Book.author_id == current_user.id).all()
-        form = UpdateBookForm()
-    elif tab_name == 'dash':
-        Purchases = db.session.query(Purchase).filter(Purchase.user_id == current_user.id)
-        total = 0
-        for purchase in Purchases:
-            total += int(purchase.amount)
-    return render_template('Dashboard.html',
-                            tab_name=tab_name,
-                            form=form,
-                            books=books if tab_name == 'MyBooks' else None,
-                            total=total if tab_name == 'dash' else None)
+        return render_template('Dashboard.html', tab_name=tab_name, form=form)
+    if current_user.usertype == "writer": 
+        if tab_name == 'Publish':
+            form = AddBookForm()
+        elif tab_name == 'MyBooks':
+            books = db.session.query(Book).filter(Book.author_id == current_user.id).all()
+            form = UpdateBookForm()
+        elif tab_name == 'dash':
+            Purchases = db.session.query(Purchase).filter(Purchase.user_id == current_user.id)
+            total = 0
+            for purchase in Purchases:
+                total += int(purchase.amount)
+        return render_template('Dashboard.html',
+                                tab_name=tab_name,
+                                form=form,
+                                books=books if tab_name == 'MyBooks' else None,
+                                total=total if tab_name == 'dash' else None)
+    else:
+        flash('Access denied. You do not have permission to access this page', 'Warning')
+        return redirect(url_for('load_content', tab_name="my_account"))
 
 @app.route('/update_account', methods={'POST'}, strict_slashes=False)
 @login_required
@@ -177,9 +178,9 @@ def publish():
             db.session.add(book)
             db.session.commit()
             flash('Congratulation! your book has been published', 'success')
-            return redirect(url_for('dashboard', tab_name="Publish"))
+            return redirect(url_for('load_content', tab_name="Publish"))
     showError(form)
-    return redirect(url_for('dashboard', tab_name="Publish", form=form, books=books))
+    return redirect(url_for('load_content', tab_name="Publish", form=form, books=books))
 
 @app.route('/books/<path:filename>')
 def get_image(filename):
@@ -274,7 +275,7 @@ def addToCart(book_id):
                 user_id= current_user.id)
         db.session.add(cart)
     else:
-        cart.quantity += 1
+        cart.quantity = 1
     db.session.commit()
     return ('Status:OK')
 
